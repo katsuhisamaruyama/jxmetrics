@@ -1,0 +1,57 @@
+/*
+ *  Copyright 2018
+ *  Software Science and Technology Lab.
+ *  Department of Computer Science, Ritsumeikan University
+ */
+
+buildscript {
+  repositories {
+    maven {
+      url 'https://plugins.gradle.org/m2/'
+    }
+  }
+  dependencies {
+    classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.4'
+  }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+group = 'com.jtool.jxmetrics'
+jar {
+    baseName = 'jxmetrics'
+    classifier = 'lib'
+    version = '1.0'
+}
+shadowJar {
+    baseName = 'jxmetrics'
+    classifier = 'all'
+    version = '1.0'
+}
+test.enabled = false
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(':org.jtool.eclipse')
+    testCompile 'junit:junit:4.+'
+}
+
+compileJava {
+    exclude '**/plugin/*'
+}
+
+shadowJar {
+    manifest {
+        attributes('Main-Class' : 'org.jtool.jxmetrics.standalone.MetricsCalculator')
+        exclude '**/plugin/*'
+    }
+}
