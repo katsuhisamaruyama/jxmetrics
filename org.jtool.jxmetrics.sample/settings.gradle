@@ -1,0 +1,14 @@
+/*
+ *  Copyright 2018
+ *  Software Science and Technology Lab.
+ *  Department of Computer Science, Ritsumeikan University
+ */
+
+rootProject.name = 'org.jtool.jxmetrics.viewer.sample'
+include 'simpleviewer'
+include 'transitionviewer'
+include ':org.jtool.eclipse'
+project(':org.jtool.eclipse').projectDir = new File(settingsDir, '../../jxplatform2/org.jtool.eclipse')
+include ':org.jtool.jxmetrics'
+project(':org.jtool.jxmetrics').projectDir = new File(settingsDir, '../org.jtool.jxmetrics')
+

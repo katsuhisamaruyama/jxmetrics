@@ -75,6 +75,7 @@ public class FieldMetrics extends CommonMetrics implements MetricsSort {
     
     public static void sort(List<FieldMetrics> mfields) {
         Collections.sort(mfields, new Comparator<FieldMetrics>() {
+            
             public int compare(FieldMetrics mfield1, FieldMetrics mfield2) {
                 return mfield1.getName().compareTo(mfield2.getName());
             }

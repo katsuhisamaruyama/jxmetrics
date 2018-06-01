@@ -8,7 +8,28 @@ package org.jtool.jxmetrics.core;
 
 import java.util.List;
 import java.util.Map;
+
+import org.jtool.jxmetrics.measurement.CBO;
+import org.jtool.jxmetrics.measurement.DIT;
+import org.jtool.jxmetrics.measurement.IMetric;
+import org.jtool.jxmetrics.measurement.LCOM;
+import org.jtool.jxmetrics.measurement.LOC;
+import org.jtool.jxmetrics.measurement.NOACL;
+import org.jtool.jxmetrics.measurement.NOAFD;
+import org.jtool.jxmetrics.measurement.NOAMD;
+import org.jtool.jxmetrics.measurement.NOC;
+import org.jtool.jxmetrics.measurement.NOECL;
+import org.jtool.jxmetrics.measurement.NOEMD;
+import org.jtool.jxmetrics.measurement.NOFD;
+import org.jtool.jxmetrics.measurement.NOMD;
+import org.jtool.jxmetrics.measurement.NOMF;
+import org.jtool.jxmetrics.measurement.NOPF;
+import org.jtool.jxmetrics.measurement.NOPM;
+import org.jtool.jxmetrics.measurement.NOST;
+import org.jtool.jxmetrics.measurement.RFC;
+import org.jtool.jxmetrics.measurement.WMC;
 import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -17,6 +38,30 @@ import java.util.Comparator;
  * @author Katsuhisa Maruyama
  */
 public class Metrics {
+    
+    private static final IMetric[] SELECTABLE_METRICS = {
+            new LOC(), new NOST(),
+            new NOMD(), new NOFD(), new NOMF(), new NOPM(), new NOPF(),
+            new NOACL(), new NOECL(), new NOAMD(), new NOEMD(), new NOAFD(),
+            new CBO(), new DIT(), new NOC(), new RFC(), new WMC(), new LCOM()
+        };
+    
+    public static IMetric getMetric(String name) {
+        for (int i = 0; i < SELECTABLE_METRICS.length; i++) {
+            if (SELECTABLE_METRICS[i].getName().equals(name)) {
+                return SELECTABLE_METRICS[i];
+            }
+        }
+        return null;
+    }
+    
+    public static List<String> getAllMetricNames() {
+        List<String> names = new ArrayList<String>();
+        for (int i = 0; i < SELECTABLE_METRICS.length; i++) {
+            names.add(SELECTABLE_METRICS[i].getName());
+        }
+        return names;
+    }
     
     protected String fqn;
     protected Map<String, Double> metricValues = new HashMap<String, Double>();

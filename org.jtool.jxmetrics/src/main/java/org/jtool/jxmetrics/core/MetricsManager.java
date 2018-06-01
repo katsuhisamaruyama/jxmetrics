@@ -89,7 +89,7 @@ public class MetricsManager {
         }
         
         Logger.getInstance().printMessage("** Ready to export data " + mproject.getName());
-        DataExporter exporter = new DataExporter();
+        MetricDataExporter exporter = new MetricDataExporter();
         Document doc = exporter.getDocument(mproject);
         XMLWriter.write(file, doc);
         Logger.getInstance().printLog("-Exported " + filename);
@@ -104,7 +104,7 @@ public class MetricsManager {
             SAXParserFactory factory = SAXParserFactory.newInstance();
             try {
                 SAXParser parser = factory.newSAXParser();
-                DataImporter handler = new DataImporter();
+                MetricDataImporter handler = new MetricDataImporter();
                 parser.parse(file, handler);
                 return handler.getProjectMetrics();
             } catch (ParserConfigurationException | SAXException | IOException e) {

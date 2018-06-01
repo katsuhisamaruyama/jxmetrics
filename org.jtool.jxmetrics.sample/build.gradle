@@ -1,0 +1,39 @@
+/*
+ *  Copyright 2018
+ *  Software Science and Technology Lab.
+ *  Department of Computer Science, Ritsumeikan University
+ */
+
+buildscript {
+  repositories {
+    maven {
+      url 'https://plugins.gradle.org/m2/'
+    }
+  }
+  dependencies {
+    classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.4'
+  }
+}
+
+group = 'com.jtool.jxmetrics'
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'com.github.johnrengelman.shadow'
+    
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+    test.enabled = false
+    
+    repositories {
+        mavenCentral()
+    }
+    
+    dependencies {
+        //compile files('../lib/swt.jar')
+        // compile project(':org.jtool.jxmetrics')
+        testCompile 'junit:junit:4.+'
+    }
+}

@@ -340,6 +340,7 @@ public class ClassMetrics extends CommonMetrics implements MetricsSort {
     
     public static void sort(List<ClassMetrics> classes) {
         Collections.sort(classes, new Comparator<ClassMetrics>() {
+            
             public int compare(ClassMetrics mclass1, ClassMetrics mclass2) {
                 return mclass1.getQualifiedName().compareTo(mclass2.getQualifiedName());
             }

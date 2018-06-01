@@ -4,6 +4,6 @@
  *  Department of Computer Science, Ritsumeikan University
  */
 
-//rootProject.name = 'org.jtool'
+rootProject.name = 'org.jtool.jxmetrics'
 include ':org.jtool.eclipse'
 project(':org.jtool.eclipse').projectDir = new File(settingsDir, '../../jxplatform2/org.jtool.eclipse')

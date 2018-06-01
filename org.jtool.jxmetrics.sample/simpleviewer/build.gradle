@@ -1,0 +1,31 @@
+/*
+ *  Copyright 2018
+ *  Software Science and Technology Lab.
+ *  Department of Computer Science, Ritsumeikan University
+ */
+
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+group = 'com.jtool.eclipse'
+jar.enabled = false
+
+shadowJar {
+    baseName = 'simpleviewer'
+    classifier = null
+    version = '1.0'
+}
+
+dependencies {
+    compile files('../lib/swt.jar')
+    compile project(':org.jtool.jxmetrics')
+    testCompile 'junit:junit:4.+'
+}
+
+shadowJar {
+    manifest {
+        attributes('Main-Class' : 'org.jtool.jxmetrics.sample.viewer.MetricsViewer')
+    }
+}

@@ -99,6 +99,7 @@ public class MethodMetrics extends CommonMetrics implements MetricsSort {
     
     public static void sort(List<MethodMetrics> mmethods) {
         Collections.sort(mmethods, new Comparator<MethodMetrics>() {
+            
             public int compare(MethodMetrics method1, MethodMetrics method2) {
                 return method1.getSignature().compareTo(method2.getSignature());
             }

@@ -10,6 +10,8 @@ import org.jtool.eclipse.javamodel.JavaProject;
 import org.jtool.eclipse.util.TimeInfo;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.time.ZonedDateTime;
 
 /**
@@ -183,5 +185,22 @@ public class ProjectMetrics extends Metrics implements MetricsSort {
     public void collectMetricsAfterXMLImport() {
         PackageMetrics.sort(packages);
         collectMetricsMax();
+    }
+    
+    public static void sort(List<ProjectMetrics> projects) {
+        Collections.sort(projects, new Comparator<ProjectMetrics>() {
+            
+            public int compare(ProjectMetrics project1, ProjectMetrics project2) {
+                long time1 = project1.getTimeAsLong();
+                long time2 = project2.getTimeAsLong();
+                if (time1 > time2) {
+                    return 1;
+                } else if (time1 < time2) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        });
     }
 }
