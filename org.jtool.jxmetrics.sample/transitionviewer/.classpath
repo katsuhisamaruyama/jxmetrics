@@ -3,6 +3,6 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
-	<classpathentry kind="lib" path="/org.jtool.jxmetrics.viewer.sample/lib/swt.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/org.jtool.jxmetrics"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
