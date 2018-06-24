@@ -29,7 +29,7 @@ JDK 1.8
 
 ### From a release
 
-You can directly download jar files of jxplatform2 on [GitHub](<https://github.com/katsuhisamaruyama/jxmetrics/tree/master/org.jtool.jxmetrics/releases>). 
+You can directly download jar files of JxMetrics on [GitHub](<https://github.com/katsuhisamaruyama/jxmetrics/tree/master/org.jtool.jxmetrics/releases>). 
 
 ### From the sources
 
