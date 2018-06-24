@@ -28,6 +28,7 @@ import org.jtool.jxmetrics.measurement.NOPM;
 import org.jtool.jxmetrics.measurement.NOST;
 import org.jtool.jxmetrics.measurement.RFC;
 import org.jtool.jxmetrics.measurement.WMC;
+import org.jtool.jxmetrics.measurement.Default;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,12 +40,13 @@ import java.util.Comparator;
  */
 public class Metrics {
     
-    private static final IMetric[] SELECTABLE_METRICS = {
+    public static final IMetric[] SELECTABLE_METRICS = {
             new LOC(), new NOST(),
             new NOMD(), new NOFD(), new NOMF(), new NOPM(), new NOPF(),
             new NOACL(), new NOECL(), new NOAMD(), new NOEMD(), new NOAFD(),
             new CBO(), new DIT(), new NOC(), new RFC(), new WMC(), new LCOM()
         };
+    public static final IMetric DEFAULT_METRIC = new Default();
     
     public static IMetric getMetric(String name) {
         for (int i = 0; i < SELECTABLE_METRICS.length; i++) {

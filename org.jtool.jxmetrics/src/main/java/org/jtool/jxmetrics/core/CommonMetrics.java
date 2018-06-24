@@ -6,6 +6,8 @@
 
 package org.jtool.jxmetrics.core;
 
+import org.eclipse.jdt.core.dom.Modifier;
+
 /**
  * Stores metric values and information common to a class, method, and field.
  * @author Katsuhisa Maruyama
@@ -46,6 +48,38 @@ public class CommonMetrics extends Metrics {
     
     public int getModifiers() {
         return modifiers;
+    }
+    
+    public boolean isPublic() {
+        return Modifier.isPublic(modifiers);
+    }
+    
+    public boolean isProtected() {
+        return Modifier.isProtected(modifiers);
+    }
+    
+    public boolean isPrivate() {
+        return Modifier.isPrivate(modifiers);
+    }
+    
+    public boolean isDefault() {
+        return !isPublic() && !isProtected() && !isPrivate();
+    }
+    
+    public boolean isFinal() {
+        return Modifier.isFinal(modifiers);
+    }
+    
+    public boolean isAbstract() {
+        return Modifier.isAbstract(modifiers);
+    }
+    
+    public boolean isStatic() {
+        return Modifier.isStatic(modifiers);
+    }
+    
+    public boolean isStrictfp() {
+        return Modifier.isStrictfp(modifiers);
     }
     
     public int getStartPosition() {

@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 /**
- * An object storing metrics information on a method.
+ * Stores metric information on a method.
  * @author Katsuhisa Maruyama
  */
 public class MethodMetrics extends CommonMetrics implements MetricsSort {
