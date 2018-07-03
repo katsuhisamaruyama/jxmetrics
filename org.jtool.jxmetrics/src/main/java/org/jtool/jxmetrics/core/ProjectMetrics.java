@@ -23,6 +23,7 @@ public class ProjectMetrics extends Metrics implements MetricsSort {
     public static final String Id = "ProjectMetrics";
     
     protected String path;
+    protected String dir;
     protected ZonedDateTime time;
     
     protected List<PackageMetrics> packages = new ArrayList<PackageMetrics>();
@@ -31,6 +32,7 @@ public class ProjectMetrics extends Metrics implements MetricsSort {
         super(jproject.getName());
         
         path = jproject.getPath();
+        dir = jproject.getDir();
         this.time = time;
     }
     
@@ -52,6 +54,10 @@ public class ProjectMetrics extends Metrics implements MetricsSort {
     
     public String getPath() {
         return path;
+    }
+    
+    public String getDir() {
+        return dir;
     }
     
     public ZonedDateTime getTime() {

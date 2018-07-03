@@ -83,7 +83,7 @@ public class MetricsManager {
     
     public void exportXML(ProjectMetrics mproject) {
         String filename = mproject.getName() + "-" + String.valueOf(mproject.getTimeAsLong()) + XML_FILENAME_EXT;
-        File file = new File(mproject.getPath() + File.separatorChar + filename);
+        File file = new File(mproject.getDir() + File.separatorChar + filename);
         if (file.exists()) {
             file.delete();
         }
