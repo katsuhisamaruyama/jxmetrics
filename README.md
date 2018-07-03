@@ -49,7 +49,7 @@ Jar files of JxMetrics can be found in the 'build/libs' folder.
 
 When you put Java source code (usually expanded Java source files) under the `xxx` folder, the following command calculates several metric values for the source code and writes the values into XML a file (`xxx-<time>.xml`).
 
-    java -jar jxmetrics-1.0-all -target xxx/ -classpath 'xxx/lib/*' -name xxx -logfile xxx.log
+    java -jar jxmetrics-1.0-all.jar -target xxx/ -classpath 'xxx/lib/*' -name xxx -logfile xxx.log
 
 * `-classpath` specifies class paths where needed libraries are contained 
 * `-name` specifies the name of a project managed in jxmetrics 
