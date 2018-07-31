@@ -32,6 +32,8 @@ public class MetricDataExporter {
             projectElem.setAttribute(MetricsManager.TimeAttr, mproject.getTimeAsString());
             doc.appendChild(projectElem);
             
+            exportMetricAttributes(doc, projectElem, mproject.getMetricValues());
+            
             for (PackageMetrics mpackage : mproject.getPackages()) {
                 export(doc, projectElem, mpackage);
             }
