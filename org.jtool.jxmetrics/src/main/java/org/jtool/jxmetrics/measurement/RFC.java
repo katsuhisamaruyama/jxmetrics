@@ -29,6 +29,16 @@ public class RFC extends Metric {
     }
     
     @Override
+    public double valueOf(ProjectMetrics mproject) throws UnsupportedMetricsException {
+        return mproject.getMetricValueWithException(RESPONSE_FOR_CLASS);
+    }
+    
+    @Override
+    public double valueOf(PackageMetrics mpackage) throws UnsupportedMetricsException {
+        return mpackage.getMetricValueWithException(RESPONSE_FOR_CLASS);
+    }
+    
+    @Override
     public double valueOf(ClassMetrics mclass) throws UnsupportedMetricsException {
         return mclass.getMetricValueWithException(RESPONSE_FOR_CLASS);
     }

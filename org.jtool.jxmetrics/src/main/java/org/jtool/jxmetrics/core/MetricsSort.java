@@ -31,7 +31,7 @@ public interface MetricsSort {
     public static final String NUMBER_OF_EFFERENT_CLASSES   = "NOECL";
     public static final String NUMBER_OF_AFFERENT_METHODS   = "NOAMD";
     public static final String NUMBER_OF_EFFERENT_METHODS   = "NOEMD";
-    public static final String NUMBER_OF_AFFERENT_FIELDS    = "NOAFD";
+    public static final String NUMBER_OF_EFFERENT_FIELDS    = "NOEFD";
     
     public static final String COUPLING_BETWEEN_OBJECTS     = "CBO";
     public static final String DEPTH_OF_INHERITANCE_TREE    = "DIT";
@@ -45,7 +45,7 @@ public interface MetricsSort {
     public static final String CYCLOMATIC_COMPLEXITY        = "CC";
     public static final String MAX_NUMBER_OF_NESTING        = "MNON";
     
-    public static final String MAX_LINE_OF_CODE                 = "MAX_LOC";
+    public static final String MAX_LINES_OF_CODE                = "MAX_LOC";
     public static final String MAX_NUMBER_OF_CLASSES            = "MAX_NOMD";
     public static final String MAX_NUMBER_OF_METHODS            = "MAX_NOMD";
     public static final String MAX_NUMBER_OF_FIELDS             = "MAX_NOFD";
@@ -60,7 +60,7 @@ public interface MetricsSort {
     public static final String MAX_NUMBER_OF_EFFERENT_CLASSES   = "MAX_NOECL";
     public static final String MAX_NUMBER_OF_AFFERENT_METHODS   = "MAX_NOAMD";
     public static final String MAX_NUMBER_OF_EFFERENT_METHODS   = "MAX_NOEMD";
-    public static final String MAX_NUMBER_OF_AFFERENT_FIELDS    = "MAX_NOAFD";
+    public static final String MAX_NUMBER_OF_EFFERENT_FIELDS    = "MAX_NOAFD";
     
     public static final String MAX_COUPLING_BETWEEN_OBJECTS     = "MAX_CBO";
     public static final String MAX_DEPTH_OF_INHERITANCE_TREE    = "MAX_DIT";

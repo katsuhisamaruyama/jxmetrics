@@ -15,7 +15,7 @@ import org.jtool.jxmetrics.measurement.IMetric;
 import org.jtool.jxmetrics.measurement.LCOM;
 import org.jtool.jxmetrics.measurement.LOC;
 import org.jtool.jxmetrics.measurement.NOACL;
-import org.jtool.jxmetrics.measurement.NOAFD;
+import org.jtool.jxmetrics.measurement.NOEFD;
 import org.jtool.jxmetrics.measurement.NOAMD;
 import org.jtool.jxmetrics.measurement.NOC;
 import org.jtool.jxmetrics.measurement.NOECL;
@@ -43,7 +43,7 @@ public class Metrics {
     public static final IMetric[] SELECTABLE_METRICS = {
             new LOC(), new NOST(),
             new NOMD(), new NOFD(), new NOMF(), new NOPM(), new NOPF(),
-            new NOACL(), new NOECL(), new NOAMD(), new NOEMD(), new NOAFD(),
+            new NOACL(), new NOECL(), new NOAMD(), new NOEMD(), new NOEFD(),
             new CBO(), new DIT(), new NOC(), new RFC(), new WMC(), new LCOM()
         };
     public static final IMetric DEFAULT_METRIC = new Default();

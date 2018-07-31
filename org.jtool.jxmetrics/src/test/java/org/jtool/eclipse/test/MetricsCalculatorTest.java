@@ -71,12 +71,12 @@ public class MetricsCalculatorTest {
     
     public static void main(String[] args) {
         MetricsCalculatorTest tester = new MetricsCalculatorTest();
-        tester.testSimple();
+        //tester.testSimple();
         tester.testTetris();
-        tester.testDrawTool();
-        tester.testCSSample();
-        tester.testFindbugs();
-        tester.testApacheAnt();
+        //tester.testDrawTool();
+        //tester.testCSSample();
+        //tester.testFindbugs();
+        //tester.testApacheAnt();
         //tester.notestJdk8();
     }
 }

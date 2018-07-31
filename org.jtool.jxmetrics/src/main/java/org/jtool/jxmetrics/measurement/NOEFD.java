@@ -13,12 +13,12 @@ import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 /**
  * @author Katsuhisa Maruyama
  */
-public class NOAFD extends Metric {
+public class NOEFD extends Metric {
     
     public static final String Name = "NOAMD";
-    private static final String Description = "Number of afferent fields";
+    private static final String Description = "Number of efferent fields";
     
-    public NOAFD() {
+    public NOEFD() {
         super(Name, Description);
     }
     
@@ -34,16 +34,16 @@ public class NOAFD extends Metric {
     
     @Override
     public double valueOf(ClassMetrics mclass) throws UnsupportedMetricsException {
-        return mclass.getMetricValueWithException(NUMBER_OF_AFFERENT_FIELDS);
+        return mclass.getMetricValueWithException(NUMBER_OF_EFFERENT_FIELDS);
     }
     
     @Override
     public double valueOf(MethodMetrics mmethod) throws UnsupportedMetricsException {
-        return mmethod.getMetricValueWithException(NUMBER_OF_AFFERENT_FIELDS);
+        return mmethod.getMetricValueWithException(NUMBER_OF_EFFERENT_FIELDS);
     }
     
     @Override
     public double maxValueIn(ClassMetrics mclass) throws UnsupportedMetricsException {
-        return mclass.getMetricValueWithException(MAX_NUMBER_OF_AFFERENT_FIELDS);
+        return mclass.getMetricValueWithException(MAX_NUMBER_OF_EFFERENT_FIELDS);
     }
 }

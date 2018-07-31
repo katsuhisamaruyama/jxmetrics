@@ -89,7 +89,7 @@ public class MethodMetrics extends CommonMetrics implements MetricsSort {
         
         putMetricValue(NUMBER_OF_AFFERENT_METHODS, new Double(jmethod.getCallingMethods().size()));
         putMetricValue(NUMBER_OF_EFFERENT_METHODS, new Double(jmethod.getCalledMethods().size()));
-        putMetricValue(NUMBER_OF_AFFERENT_FIELDS, new Double(jmethod.getAccessingFields().size()));
+        putMetricValue(NUMBER_OF_EFFERENT_FIELDS, new Double(jmethod.getAccessedFields().size()));
         
         putMetricValue(NUMBER_OF_PARAMETERS, new Double(jmethod.getParameterSize()));
         putMetricValue(CYCLOMATIC_COMPLEXITY, new Double(jmethod.getCyclomaticNumber()));

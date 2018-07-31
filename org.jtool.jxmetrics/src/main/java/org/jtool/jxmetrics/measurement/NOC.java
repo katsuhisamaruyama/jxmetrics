@@ -29,6 +29,16 @@ public class NOC extends Metric {
     }
     
     @Override
+    public double valueOf(ProjectMetrics mproject) throws UnsupportedMetricsException {
+        return mproject.getMetricValueWithException(NUMBER_OF_CHILDREN);
+    }
+    
+    @Override
+    public double valueOf(PackageMetrics mpackage) throws UnsupportedMetricsException {
+        return mpackage.getMetricValueWithException(NUMBER_OF_CHILDREN);
+    }
+    
+    @Override
     public double valueOf(ClassMetrics mclass) throws UnsupportedMetricsException {
         return mclass.getMetricValueWithException(NUMBER_OF_CHILDREN);
     }

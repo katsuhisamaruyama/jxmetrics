@@ -77,16 +77,16 @@ public class LOC extends Metric {
     
     @Override
     public double maxValueIn(ProjectMetrics mproject) throws UnsupportedMetricsException {
-        return mproject.getMetricValueWithException(MAX_LINE_OF_CODE);
+        return mproject.getMetricValueWithException(MAX_LINES_OF_CODE);
     }
     
     @Override
     public double maxValueIn(PackageMetrics mpackage) throws UnsupportedMetricsException {
-        return mpackage.getMetricValueWithException(MAX_LINE_OF_CODE);
+        return mpackage.getMetricValueWithException(MAX_LINES_OF_CODE);
     }
     
     @Override
     public double maxValueIn(ClassMetrics mclass) throws UnsupportedMetricsException {
-        return mclass.getMetricValueWithException(MAX_LINE_OF_CODE);
+        return mclass.getMetricValueWithException(MAX_LINES_OF_CODE);
     }
 }

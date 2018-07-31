@@ -9,16 +9,16 @@ package org.jtool.jxmetrics.measurement;
 import org.jtool.jxmetrics.core.ClassMetrics;
 import org.jtool.jxmetrics.core.FieldMetrics;
 import org.jtool.jxmetrics.core.MethodMetrics;
-import org.jtool.jxmetrics.core.MetricsSort;
 import org.jtool.jxmetrics.core.PackageMetrics;
 import org.jtool.jxmetrics.core.ProjectMetrics;
+import org.jtool.jxmetrics.core.MetricsSort;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 
 /**
  * A default implementation for metric measurements.
  * @author Katsuhisa Maruyama
  */
-public class Metric implements IMetric, MetricsSort{
+public class Metric implements IMetric, MetricsSort {
     
     private String name = "";
     private String description = "";

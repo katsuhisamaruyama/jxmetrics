@@ -32,6 +32,16 @@ public class CBO extends Metric {
     }
     
     @Override
+    public double valueOf(ProjectMetrics mproject) throws UnsupportedMetricsException {
+        return mproject.getMetricValueWithException(COUPLING_BETWEEN_OBJECTS);
+    }
+    
+    @Override
+    public double valueOf(PackageMetrics mpackage) throws UnsupportedMetricsException {
+        return mpackage.getMetricValueWithException(COUPLING_BETWEEN_OBJECTS);
+    }
+    
+    @Override
     public double valueOf(ClassMetrics mclass) throws UnsupportedMetricsException {
         return mclass.getMetricValueWithException(COUPLING_BETWEEN_OBJECTS);
     }

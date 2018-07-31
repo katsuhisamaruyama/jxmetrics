@@ -96,6 +96,9 @@ public class MetricsManager {
     }
     
     public ProjectMetrics importXML(String path) {
+        if (path == null || path.length() == 0) {
+            return null;
+        }
         return importXML(new File(path));
     }
     

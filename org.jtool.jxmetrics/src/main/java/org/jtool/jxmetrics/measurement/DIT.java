@@ -29,6 +29,16 @@ public class DIT extends Metric {
     }
     
     @Override
+    public double valueOf(ProjectMetrics mproject) throws UnsupportedMetricsException {
+        return mproject.getMetricValueWithException(DEPTH_OF_INHERITANCE_TREE);
+    }
+    
+    @Override
+    public double valueOf(PackageMetrics mpackage) throws UnsupportedMetricsException {
+        return mpackage.getMetricValueWithException(DEPTH_OF_INHERITANCE_TREE);
+    }
+    
+    @Override
     public double valueOf(ClassMetrics mclass) throws UnsupportedMetricsException {
         return mclass.getMetricValueWithException(DEPTH_OF_INHERITANCE_TREE);
     }

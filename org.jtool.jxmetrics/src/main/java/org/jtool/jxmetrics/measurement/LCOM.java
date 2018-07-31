@@ -29,6 +29,16 @@ public class LCOM extends Metric {
     }
     
     @Override
+    public double valueOf(ProjectMetrics mproject) throws UnsupportedMetricsException {
+        return mproject.getMetricValueWithException(LACK_OF_COHESION_OF_METHODS);
+    }
+    
+    @Override
+    public double valueOf(PackageMetrics mpackage) throws UnsupportedMetricsException {
+        return mpackage.getMetricValueWithException(LACK_OF_COHESION_OF_METHODS);
+    }
+    
+    @Override
     public double valueOf(ClassMetrics mclass) throws UnsupportedMetricsException {
         return mclass.getMetricValueWithException(LACK_OF_COHESION_OF_METHODS);
     }

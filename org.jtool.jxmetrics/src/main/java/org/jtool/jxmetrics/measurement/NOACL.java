@@ -29,6 +29,16 @@ public class NOACL extends Metric {
     }
     
     @Override
+    public double valueOf(ProjectMetrics mproject) throws UnsupportedMetricsException {
+        return mproject.getMetricValueWithException(NUMBER_OF_AFFERENT_CLASSES);
+    }
+    
+    @Override
+    public double valueOf(PackageMetrics mpackage) throws UnsupportedMetricsException {
+        return mpackage.getMetricValueWithException(NUMBER_OF_AFFERENT_CLASSES);
+    }
+    
+    @Override
     public double valueOf(ClassMetrics mclass) throws UnsupportedMetricsException {
         return mclass.getMetricValueWithException(NUMBER_OF_AFFERENT_CLASSES);
     }

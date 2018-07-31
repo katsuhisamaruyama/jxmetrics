@@ -196,7 +196,7 @@ public class ClassMetrics extends CommonMetrics implements MetricsSort {
         putMetricValue(NUMBER_OF_EFFERENT_CLASSES, new Double(jclass.getEfferentClassesInProject().size()));
         putMetricValue(NUMBER_OF_AFFERENT_METHODS, sum(NUMBER_OF_AFFERENT_METHODS));
         putMetricValue(NUMBER_OF_EFFERENT_METHODS, sum(NUMBER_OF_EFFERENT_METHODS));
-        putMetricValue(NUMBER_OF_AFFERENT_FIELDS, sum(NUMBER_OF_AFFERENT_FIELDS));
+        putMetricValue(NUMBER_OF_EFFERENT_FIELDS, sum(NUMBER_OF_EFFERENT_FIELDS));
         
         putMetricValue(COUPLING_BETWEEN_OBJECTS, getCBO(jclass));
         putMetricValue(DEPTH_OF_INHERITANCE_TREE, new Double(jclass.getAllSuperClasses().size()));
@@ -206,44 +206,25 @@ public class ClassMetrics extends CommonMetrics implements MetricsSort {
         putMetricValue(LACK_OF_COHESION_OF_METHODS, getLCOM(jclass));
     }
     
+    public void collectMetricsAfterXMLImport() {
+        MethodMetrics.sort(methods);
+        FieldMetrics.sort(fields);
+        sortNames(afferentClassNames);
+        sortNames(efferentClassNames);
+    }
+    
     protected void collectMetricsMax() {
-        double maxLOC = 0;
-        double maxNOST = 0;
+        putMetricValue(MAX_LINES_OF_CODE, max(LINES_OF_CODE));
+        putMetricValue(MAX_NUMBER_OF_STATEMENTS, max(NUMBER_OF_STATEMENTS));
         
-        double maxNOAM = 0;
-        double maxNOEM = 0;
-        double maxNOAF = 0;
+        putMetricValue(MAX_NUMBER_OF_AFFERENT_METHODS, maxForMethods(NUMBER_OF_AFFERENT_METHODS));
+        putMetricValue(MAX_NUMBER_OF_EFFERENT_METHODS, maxForMethods(NUMBER_OF_EFFERENT_METHODS));
+        putMetricValue(MAX_NUMBER_OF_EFFERENT_FIELDS, maxForMethods(NUMBER_OF_EFFERENT_FIELDS));
         
-        double maxNOPT = 0;
-        double maxCC = 0;
-        double maxNOVL = 0;
-        double maxMNON = 0;
-        
-        for (MethodMetrics mmethod : methods) {
-            maxLOC = Math.max(maxLOC, mmethod.getMetricValue(LINES_OF_CODE));
-            maxNOST = Math.max(maxNOST, mmethod.getMetricValue(NUMBER_OF_STATEMENTS));
-            
-            maxNOAM = Math.max(maxNOST, mmethod.getMetricValue(NUMBER_OF_AFFERENT_METHODS));
-            maxNOEM = Math.max(maxNOST, mmethod.getMetricValue(NUMBER_OF_EFFERENT_METHODS));
-            maxNOAF = Math.max(maxNOST, mmethod.getMetricValue(NUMBER_OF_AFFERENT_FIELDS));
-            
-            maxNOPT = Math.max(maxNOPT, mmethod.getMetricValue(NUMBER_OF_PARAMETERS));
-            maxCC = Math.max(maxCC, mmethod.getMetricValue(CYCLOMATIC_COMPLEXITY));
-            maxNOVL = Math.max(maxNOVL, mmethod.getMetricValue(NUMBER_OF_VARIABLES));
-            maxMNON = Math.max(maxMNON, mmethod.getMetricValue(MAX_NUMBER_OF_NESTING));
-        }
-        
-        putMetricValue(MAX_LINE_OF_CODE, maxLOC);
-        putMetricValue(MAX_NUMBER_OF_STATEMENTS, maxNOST);
-        
-        putMetricValue(MAX_NUMBER_OF_AFFERENT_METHODS, maxNOAM);
-        putMetricValue(MAX_NUMBER_OF_EFFERENT_METHODS, maxNOEM);
-        putMetricValue(MAX_NUMBER_OF_AFFERENT_FIELDS, maxNOAF);
-        
-        putMetricValue(MAX_NUMBER_OF_PARAMETERS, maxNOPT);
-        putMetricValue(MAX_CYCLOMATIC_COMPLEXITY, maxCC);
-        putMetricValue(MAX_NUMBER_OF_VARIABLES, maxNOVL);
-        putMetricValue(MAX_MAX_NUMBER_OF_NESTING, maxMNON);
+        putMetricValue(MAX_NUMBER_OF_PARAMETERS, maxForMethods(NUMBER_OF_PARAMETERS));
+        putMetricValue(MAX_CYCLOMATIC_COMPLEXITY, maxForMethods(CYCLOMATIC_COMPLEXITY));
+        putMetricValue(MAX_NUMBER_OF_VARIABLES, maxForMethods(NUMBER_OF_VARIABLES));
+        putMetricValue(MAX_MAX_NUMBER_OF_NESTING, maxForMethods(MAX_NUMBER_OF_NESTING));
     }
     
     private double getNumPublicMethods(JavaClass jclass) {
@@ -338,6 +319,25 @@ public class ClassMetrics extends CommonMetrics implements MetricsSort {
         return new Double(value);
     }
     
+    protected Double max(String sort) {
+        double value = 0;
+        for (MethodMetrics mmethod : methods) {
+            value = Math.max(value, mmethod.getMetricValue(sort));
+        }
+        for (FieldMetrics mfield : fields) {
+            value = Math.max(value, mfield.getMetricValue(sort));
+        }
+        return new Double(value);
+    }
+    
+    protected Double maxForMethods(String sort) {
+        double value = 0;
+        for (MethodMetrics mmethod : methods) {
+            value = Math.max(value, mmethod.getMetricValue(sort));
+        }
+        return new Double(value);
+    }
+    
     public static void sort(List<ClassMetrics> classes) {
         Collections.sort(classes, new Comparator<ClassMetrics>() {
             
@@ -345,13 +345,5 @@ public class ClassMetrics extends CommonMetrics implements MetricsSort {
                 return mclass1.getQualifiedName().compareTo(mclass2.getQualifiedName());
             }
         });
-    }
-    
-    public void collectMetricsAfterXMLImport() {
-        MethodMetrics.sort(methods);
-        FieldMetrics.sort(fields);
-        sortNames(afferentClassNames);
-        sortNames(efferentClassNames);
-        collectMetricsMax();
     }
 }
