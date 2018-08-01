@@ -157,7 +157,9 @@ public class ProjectMetrics extends Metrics implements MetricsSort {
     protected Double max(String sort) {
         double value = 0;
         for (PackageMetrics mpackage : packages) {
-            value = Math.max(value, mpackage.getMetricValue(sort));
+            for (ClassMetrics mclass : mpackage.getClasses()) {
+                value = Math.max(value, mclass.getMetricValue(sort));
+            }
         }
         return new Double(value);
     }
