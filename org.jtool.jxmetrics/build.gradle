@@ -20,16 +20,25 @@ apply plugin: 'eclipse'
 apply plugin: 'com.github.johnrengelman.shadow'
 
 group = 'com.jtool.jxmetrics'
+
+eclipse {
+    classpath {
+        containers 'org.eclipse.pde.core.requiredPlugins'
+    }
+}
+
 jar {
     baseName = 'jxmetrics'
     classifier = 'lib'
     version = '1.0'
 }
+
 shadowJar {
     baseName = 'jxmetrics'
     classifier = 'all'
     version = '1.0'
 }
+
 test.enabled = false
 
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
