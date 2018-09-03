@@ -8,6 +8,7 @@ package org.jtool.jxmetrics.core;
 
 /**
  * Defines the sort of metrics and their abbreviations.
+ * 
  * @author Katsuhisa Maruyama
  */
 public interface MetricsSort {

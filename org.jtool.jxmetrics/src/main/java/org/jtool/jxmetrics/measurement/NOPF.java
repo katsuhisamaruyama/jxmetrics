@@ -12,6 +12,8 @@ import org.jtool.jxmetrics.core.ProjectMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 
 /**
+ * Measures the value of Number of Public Fields.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class NOPF extends Metric {

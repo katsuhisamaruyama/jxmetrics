@@ -15,6 +15,7 @@ import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 
 /**
  * An interface for metric measurements.
+ * 
  * @author Katsuhisa Maruyama
  */
 public interface IMetric {

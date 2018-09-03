@@ -22,6 +22,7 @@ import java.util.Comparator;
 
 /**
  * Displays metric values of a specific metric measurement.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class MetricsTransitionTable extends Composite {

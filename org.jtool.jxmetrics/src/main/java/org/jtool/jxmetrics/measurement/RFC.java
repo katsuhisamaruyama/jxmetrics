@@ -12,6 +12,8 @@ import org.jtool.jxmetrics.core.ProjectMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 
 /**
+ * Measures the value of Response for Classes.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class RFC extends Metric {

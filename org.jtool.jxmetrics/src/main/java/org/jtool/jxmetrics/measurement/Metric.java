@@ -16,6 +16,7 @@ import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 
 /**
  * A default implementation for metric measurements.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class Metric implements IMetric, MetricsSort {

@@ -14,6 +14,8 @@ import org.jtool.jxmetrics.core.ProjectMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 
 /**
+ * Measures the value of Lines of Code.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class LOC extends Metric {

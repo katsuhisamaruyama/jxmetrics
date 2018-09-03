@@ -15,6 +15,7 @@ import java.util.Map;
 
 /**
  * Exports the metric values related to elements within a project.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class MetricDataExporter {

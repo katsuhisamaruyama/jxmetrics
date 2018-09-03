@@ -12,6 +12,8 @@ import org.jtool.jxmetrics.core.ProjectMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 
 /**
+ * Measures the value of Number of Children.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class NOC extends Metric {

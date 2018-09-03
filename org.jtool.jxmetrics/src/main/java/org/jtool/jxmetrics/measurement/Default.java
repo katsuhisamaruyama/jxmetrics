@@ -15,6 +15,7 @@ import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 
 /**
  * Measures nothing and returns always default values.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class Default extends Metric {

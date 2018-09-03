@@ -13,6 +13,7 @@ import java.util.Comparator;
 
 /**
  * Stores metric information on a field.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class FieldMetrics extends CommonMetrics implements MetricsSort {

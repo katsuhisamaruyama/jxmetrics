@@ -12,6 +12,8 @@ import org.jtool.jxmetrics.core.ProjectMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 
 /**
+ * Measures the value of Coupling Between Objects.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class CBO extends Metric {

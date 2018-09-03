@@ -4,16 +4,17 @@
  *  Department of Computer Science, Ritsumeikan University
  */
 
-package org.jtool.jxmetrics.standalone;
+package org.jtool.jxmetrics.batch;
 
 import org.jtool.jxmetrics.core.MetricsManager;
 import org.jtool.jxmetrics.core.ProjectMetrics;
-import org.jtool.eclipse.standalone.JavaModelBuilder;
+import org.jtool.eclipse.batch.JavaModelBuilder;
 import org.jtool.eclipse.javamodel.JavaProject;
 import org.jtool.eclipse.util.Logger;
 
 /**
  * Calculates metric values.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class MetricsCalculator {
@@ -33,8 +34,7 @@ public class MetricsCalculator {
     }
     
     public void run() {
-        builder.build(true);
-        JavaProject jproject = builder.getProject();
+        JavaProject jproject = builder.build();
         
         MetricsManager manager = new MetricsManager();
         ProjectMetrics mproject = manager.calculate(jproject);

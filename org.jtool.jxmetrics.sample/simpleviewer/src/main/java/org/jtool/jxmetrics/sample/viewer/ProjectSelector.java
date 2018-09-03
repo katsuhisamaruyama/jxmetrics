@@ -30,6 +30,7 @@ import java.io.File;
 
 /**
  * Selects a project of interest.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class ProjectSelector extends Composite {

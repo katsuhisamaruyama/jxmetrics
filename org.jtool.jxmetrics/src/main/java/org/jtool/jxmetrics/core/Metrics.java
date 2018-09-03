@@ -36,6 +36,7 @@ import java.util.Comparator;
 
 /**
  * Stores metric values.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class Metrics {

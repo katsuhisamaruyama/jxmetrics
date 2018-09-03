@@ -11,6 +11,8 @@ import org.jtool.jxmetrics.core.ProjectMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 
 /**
+ * Measures the value of Number of Efferent Packages.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class NOEPG extends Metric {

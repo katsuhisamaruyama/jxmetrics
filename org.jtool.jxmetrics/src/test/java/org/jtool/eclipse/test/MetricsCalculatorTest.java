@@ -6,11 +6,12 @@
 
 package org.jtool.eclipse.test;
 
-import org.jtool.jxmetrics.standalone.MetricsCalculator;
+import org.jtool.jxmetrics.batch.MetricsCalculator;
 import org.junit.Test;
 
 /**
  * Tests a class that calculates.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class MetricsCalculatorTest {

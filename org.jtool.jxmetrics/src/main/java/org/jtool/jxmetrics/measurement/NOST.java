@@ -14,6 +14,8 @@ import org.jtool.jxmetrics.core.ProjectMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 
 /**
+ * Measures the value of Number of Statements.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class NOST extends Metric {

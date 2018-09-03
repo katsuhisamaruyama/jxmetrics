@@ -21,6 +21,7 @@ import java.io.StringWriter;
 
 /**
  * Writes the contents of a DOM instance into an XML file.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class XMLWriter {

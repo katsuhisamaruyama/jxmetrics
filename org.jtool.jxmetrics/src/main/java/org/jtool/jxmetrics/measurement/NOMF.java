@@ -12,6 +12,8 @@ import org.jtool.jxmetrics.core.ProjectMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 
 /**
+ * Measures the value of Number of Methods and Fields.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class NOMF extends Metric {

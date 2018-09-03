@@ -12,6 +12,8 @@ import org.jtool.jxmetrics.core.ProjectMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 
 /**
+ * Measures the value of Number of Public Methods.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class NOPM extends Metric {

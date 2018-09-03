@@ -15,6 +15,7 @@ import java.util.Comparator;
 
 /**
  * Stores metric information on a package.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class PackageMetrics extends Metrics implements MetricsSort {

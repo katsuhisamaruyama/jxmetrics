@@ -11,6 +11,8 @@ import org.jtool.jxmetrics.core.MethodMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 
 /**
+ * Measures the value of Number of Variables.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class NOVL extends Metric {

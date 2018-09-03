@@ -11,6 +11,8 @@ import org.jtool.jxmetrics.core.MethodMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 
 /**
+ * Measures the value of Maximum Number of Nesting.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class MNON extends Metric {

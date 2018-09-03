@@ -64,3 +64,8 @@ shadowJar {
         exclude '**/plugin/*'
     }
 }
+
+task copyJar(type: Copy) {
+    from 'build/libs'
+    into 'releases'
+}

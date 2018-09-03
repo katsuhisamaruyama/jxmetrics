@@ -10,6 +10,7 @@ import org.eclipse.jdt.core.dom.Modifier;
 
 /**
  * Stores metric values and information common to a class, method, and field.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class CommonMetrics extends Metrics {

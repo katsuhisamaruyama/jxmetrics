@@ -12,6 +12,8 @@ import org.jtool.jxmetrics.core.ProjectMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 
 /**
+ * Measures the value of Weighted Methods per Class.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class WMC extends Metric {

@@ -10,6 +10,8 @@ import org.jtool.jxmetrics.core.ProjectMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 
 /**
+ * Measures the value of Number of Packages.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class NOPG extends Metric {

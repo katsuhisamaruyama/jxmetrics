@@ -12,6 +12,8 @@ import org.jtool.jxmetrics.core.ProjectMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 
 /**
+ * Measures the value of Lack of Cohesion Methods.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class LCOM extends Metric {

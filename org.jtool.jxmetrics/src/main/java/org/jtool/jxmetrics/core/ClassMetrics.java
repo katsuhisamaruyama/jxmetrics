@@ -17,6 +17,7 @@ import java.io.File;
 
 /**
  * Stores metric information on a class.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class ClassMetrics extends CommonMetrics implements MetricsSort {

@@ -7,7 +7,7 @@
 package org.jtool.jxmetrics.plugin;
 
 import org.jtool.eclipse.javamodel.JavaProject;
-import org.jtool.eclipse.plugin.ProjectManager;
+import org.jtool.eclipse.plugin.ModelBuilderPlugin;
 import org.jtool.jxmetrics.core.MetricsManager;
 import org.jtool.jxmetrics.core.ProjectMetrics;
 import org.eclipse.jface.viewers.ISelection;
@@ -22,6 +22,7 @@ import org.eclipse.ui.handlers.HandlerUtil;
 
 /**
  * Performs an action for displaying a code forest view by newly building java models of elements within a project.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class ExportAction extends AbstractHandler {
@@ -42,8 +43,10 @@ public class ExportAction extends AbstractHandler {
             } else if (elem instanceof IProject) {
                 project = (IJavaProject)JavaCore.create((IProject)elem);
             }
+            
             if (project != null) {
-                JavaProject jproject = ProjectManager.getInstance().build(project);
+                ModelBuilderPlugin modelBuilder = new ModelBuilderPlugin();
+                JavaProject jproject = modelBuilder.build(project);
                 MetricsManager manager = new MetricsManager();
                 ProjectMetrics mproject = manager.calculate(jproject);
                 manager.exportXML(mproject);

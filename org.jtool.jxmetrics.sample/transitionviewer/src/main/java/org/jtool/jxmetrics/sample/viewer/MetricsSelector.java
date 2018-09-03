@@ -34,6 +34,7 @@ import java.io.File;
 
 /**
  * Selects a metric measurement of interest.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class MetricsSelector extends Composite {

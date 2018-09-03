@@ -16,6 +16,7 @@ import java.util.HashMap;
 
 /**
  * Manages source code information within a Java project.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class SourceCodeStore {

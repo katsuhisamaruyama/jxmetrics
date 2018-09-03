@@ -8,6 +8,7 @@ package org.jtool.jxmetrics.core;
 
 /**
  * An object encapsulating a exception with respect to a metric measurement.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class UnsupportedMetricsException extends Exception {

@@ -3,10 +3,10 @@ Bundle-ManifestVersion: 2
 Bundle-Name: JxMetrics
 Bundle-SymbolicName: org.jtool.jxmetrics;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Export-Package: org.jtool.jxmetrics.core,
+Export-Package: org.jtool.jxmetrics.batch,
+ org.jtool.jxmetrics.core,
  org.jtool.jxmetrics.measurement,
  org.jtool.jxmetrics.plugin,
- org.jtool.jxmetrics.standalone,
  org.jtool.jxmetrics.util
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,

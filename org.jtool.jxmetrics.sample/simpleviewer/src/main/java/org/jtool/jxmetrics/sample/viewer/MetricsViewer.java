@@ -19,6 +19,7 @@ import java.io.IOException;
 
 /**
  * A viewer that displays the metric values of a specific metric measurement.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class MetricsViewer {

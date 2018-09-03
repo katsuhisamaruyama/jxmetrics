@@ -12,6 +12,8 @@ import org.jtool.jxmetrics.core.ProjectMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 
 /**
+ * Measures the value of Number of Number of Fields.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class NOFD extends Metric {

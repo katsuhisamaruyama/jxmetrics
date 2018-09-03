@@ -10,7 +10,7 @@ import org.jtool.jxmetrics.util.XMLWriter;
 import org.jtool.eclipse.javamodel.JavaProject;
 import org.jtool.eclipse.javamodel.JavaPackage;
 import org.jtool.eclipse.util.Logger;
-import org.jtool.eclipse.util.ProgressMonitor;
+import org.jtool.eclipse.util.ConsoleProgressMonitor;
 import org.jtool.eclipse.util.TimeInfo;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -23,6 +23,7 @@ import java.time.ZonedDateTime;
 
 /**
  * Calculates the metric values related to elements within a project.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class MetricsManager {
@@ -68,7 +69,7 @@ public class MetricsManager {
         
         int size = jproject.getPackages().size();
         Logger.getInstance().printMessage("** Ready to calculate the metric values of 1 project and " + size + " packages");
-        ProgressMonitor pm = new ProgressMonitor();
+        ConsoleProgressMonitor pm = new ConsoleProgressMonitor();
         pm.begin(size);
         for (JavaPackage jpackage : jproject.getPackages()) {
             PackageMetrics mpackage = new PackageMetrics(jpackage, mproject);

@@ -14,6 +14,7 @@ import java.time.ZonedDateTime;
 
 /**
  * Imports the metric values related to element within a project from an XML file.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class MetricDataImporter extends DefaultHandler {

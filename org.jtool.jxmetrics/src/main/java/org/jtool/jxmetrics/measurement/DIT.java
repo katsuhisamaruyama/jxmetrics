@@ -12,6 +12,8 @@ import org.jtool.jxmetrics.core.ProjectMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 
 /**
+ * Measures the value of Depth of Inheritance.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class DIT extends Metric {

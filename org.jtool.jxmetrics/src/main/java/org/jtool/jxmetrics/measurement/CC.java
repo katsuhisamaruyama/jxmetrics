@@ -11,6 +11,8 @@ import org.jtool.jxmetrics.core.MethodMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 
 /**
+ * Measures the value of Cyclomatic Complexity.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class CC extends Metric {

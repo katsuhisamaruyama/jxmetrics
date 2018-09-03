@@ -16,6 +16,7 @@ import java.time.ZonedDateTime;
 
 /**
  * Stores metric information on a project.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class ProjectMetrics extends Metrics implements MetricsSort {

@@ -16,6 +16,7 @@ import java.io.File;
 
 /**
  * Reads an XML file and creates a DOM instance corresponding to the contents of the XML file.
+ * 
  * @author Katsuhisa Maruyama
  */
 public class XMLReader {
