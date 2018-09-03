@@ -27,55 +27,63 @@ JDK 1.8
 
 ## Installation
 
-### From a release
+### For batch-process versions
 
-You can directly download jar files of JxMetrics on [GitHub](<https://github.com/katsuhisamaruyama/jxmetrics/tree/master/org.jtool.jxmetrics/releases>). 
+You can build the batch-process versions of JxMetrics with the following commands:
 
-### From the sources
-
-You can build jxplatform2 with the following commands: 
-
+    git clone https://github.com/katsuhisamaruyama/jxplatform2/
     git clone https://github.com/katsuhisamaruyama/jxmetrics/
     cd jxmetrics/org.jtool.jxmetrics
     ./gradlew build jar shadowJar
 
 Jar files of JxMetrics can be found in the 'build/libs' folder.
 
+### For an Eclipse plug-in version
+
+You can import the JxMetrics project from this site, build it, and export a deployable jar file as an Eclipse plug-in
+
 ## Usage
 
-### As a stand-alone application
+### As a batch-process application
 
-`jxmetrics-1.0-all.jar` is an executable jar file.
-
-When you put Java source code (usually expanded Java source files) under the `xxx` folder, the following command calculates several metric values for the source code and writes the values into XML a file (`xxx-<time>.xml`).
+`jxmetrics-1.0-all.jar` is an executable jar file. When you put Java source code (usually expanded Java source files) under the `xxx` folder, the following command calculates several metric values for the source code and writes the values into an XML file (`xxx-<time>.xml`).
 
     java -jar jxmetrics-1.0-all.jar -target xxx/ -classpath 'xxx/lib/*' -name xxx -logfile xxx.log
 
-* `-classpath` specifies class paths where needed libraries are contained 
-* `-name` specifies the name of a project managed in jxmetrics 
-* `-logfile` specifies the name of a file in which the result of analysis is written 
+* `-classpath`: (optional) specifies class paths where needed libraries are contained 
+* `-name`: (optional) specifies the name of a project managed in jxmetrics 
+* `-logfile`:(optional) specifies the name of a file in which the result of analysis is written 
 
-These three options can be eliminated if they are needless. 
+If your batch-process application employs JxPlatform2, you should use `jxmetrics-1.0-lib.jar` instead of `jxplatform-1.0-all.jar`.
 
-### As an Eclipse plug-in
+`MetricsManager` class provides APIs for calculating metric values. It also exports metric values into an XML file and imports ones from an XML file. The following API calls write the measured values into an XML file.  In this case, `jxplatform-1.0-lib.jar` is also needed.
 
-You put `jxmetrics-1.0-lib.jar` in the 'plug-ins' directory under the Eclipse. Eclipse needs to be restarted. 
-
-MetricsManager class provides APIs for calculating metric values. It also exports metric values into an XML file and imports ones from an XML file. 
-
-The following code calculates metrics values for Java elements within an Eclipse's project and exports them into an XML file. 
-
-    IJavaProject project;
-    JavaProject jproject = ProjectManager.getInstance().build(project);
+    JavaModelBuilder builder = new JavaModelBuilder(name, target, classpath);
     MetricsManager manager = new MetricsManager();
     ProjectMetrics mproject = manager.calculate(jproject);
     manager.exportXML(mproject);
+    Logger.getInstance().writeLog();
+    builder.unbuild();
 
 The following code imports metrics values from an XML file with a path name.
 
-    String path;
+    String path;  // The path of an XNL file that contains metrics data
     MetricsManager manager = new MetricsManager();
     ProjectMetrics mproject = manager.importXML(path);
+
+
+### As an Eclipse plug-in
+
+`MetricsManager` class provides APIs for calculating metric values. It also exports metric values into an XML file and imports ones from an XML file. 
+
+The following code calculates metrics values for Java elements within a specified Eclipse's project and exports them into an XML file. 
+
+    org.eclipse.jdt.core.IJavaProject project;  // Eclipse's project
+    ModelBuilderPlugin modelBuilder = new ModelBuilderPlugin();
+    JavaProject jproject = modelBuilder.build(project);
+    MetricsManager manager = new MetricsManager();
+    ProjectMetrics mproject = manager.calculate(jproject);
+    manager.exportXML(mproject);
 
 ### Samples
 
