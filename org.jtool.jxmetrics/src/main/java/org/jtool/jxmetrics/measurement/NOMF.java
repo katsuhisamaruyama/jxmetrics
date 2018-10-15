@@ -18,7 +18,7 @@ import org.jtool.jxmetrics.core.UnsupportedMetricsException;
  */
 public class NOMF extends Metric {
     
-    public static final String Name = "NOMD+NOFD";
+    public static final String Name = "NOMF";
     private static final String Description = "Number of methods and fields";
     
     public NOMF() {

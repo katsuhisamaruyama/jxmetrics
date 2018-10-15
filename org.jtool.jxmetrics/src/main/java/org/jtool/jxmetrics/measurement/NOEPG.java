@@ -17,7 +17,7 @@ import org.jtool.jxmetrics.core.UnsupportedMetricsException;
  */
 public class NOEPG extends Metric {
     
-    public static final String Name = "NOFL";
+    public static final String Name = "NOEPG";
     private static final String Description = "Number of efferent packages";
     
     public NOEPG() {

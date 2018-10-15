@@ -17,7 +17,7 @@ import org.jtool.jxmetrics.core.UnsupportedMetricsException;
  */
 public class NOEFD extends Metric {
     
-    public static final String Name = "NOAMD";
+    public static final String Name = "NOEFD";
     private static final String Description = "Number of efferent fields";
     
     public NOEFD() {
