@@ -60,7 +60,7 @@ compileJava {
 
 shadowJar {
     manifest {
-        attributes('Main-Class' : 'org.jtool.jxmetrics.standalone.MetricsCalculator')
+        attributes('Main-Class' : 'org.jtool.jxmetrics.batch.MetricsCalculator')
         exclude '**/plugin/*'
     }
 }
