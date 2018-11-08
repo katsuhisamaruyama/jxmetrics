@@ -23,8 +23,12 @@ public class MethodMetrics extends CommonMetrics implements MetricsSort {
     protected JavaMethod.Kind kind;
     protected ClassMetrics classMetrics;
     
+    protected MethodMetrics(String fqn, String name, String type, int modifiers) {
+        super(fqn, name, type, modifiers);
+    }
+    
     public MethodMetrics(JavaMethod jmethod, ClassMetrics mclass) {
-        super(jmethod.getQualifiedName(), jmethod.getSignature(), jmethod.getReturnType(), jmethod.getModifiers());
+        this(jmethod.getQualifiedName(), jmethod.getSignature(), jmethod.getReturnType(), jmethod.getModifiers());
         
         kind = jmethod.getKind();
         classMetrics = mclass;
@@ -84,7 +88,7 @@ public class MethodMetrics extends CommonMetrics implements MetricsSort {
         return super.getSourceCode(classMetrics.getFullPath());
     }
     
-    private void collectMetrics(JavaMethod jmethod) {
+    protected void collectMetrics(JavaMethod jmethod) {
         putMetricValue(LINES_OF_CODE, new Double(bottom - upper + 1));
         putMetricValue(NUMBER_OF_STATEMENTS, new Double(jmethod.getNumberOfStatements()));
         

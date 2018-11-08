@@ -35,8 +35,12 @@ public class ClassMetrics extends CommonMetrics implements MetricsSort {
     protected List<String> afferentClassNames = new ArrayList<String>();
     protected List<String> efferentClassNames = new ArrayList<String>();
     
+    protected ClassMetrics(String fqn, String name, String type, int modifiers) {
+        super(fqn, name, type, modifiers);
+    }
+    
     public ClassMetrics(JavaClass jclass, PackageMetrics mpackage) {
-        super(jclass.getQualifiedName(), jclass.getName(), jclass.getQualifiedName(), jclass.getModifiers());
+        this(jclass.getQualifiedName(), jclass.getName(), jclass.getQualifiedName(), jclass.getModifiers());
         
         kind = jclass.getKind();
         packageMetrics = mpackage;
@@ -183,7 +187,7 @@ public class ClassMetrics extends CommonMetrics implements MetricsSort {
         return super.getSourceCode(getFullPath());
     }
     
-    private void collectMetrics(JavaClass jclass) {
+    protected void collectMetrics(JavaClass jclass) {
         putMetricValue(LINES_OF_CODE, new Double(bottom - upper + 1));
         putMetricValue(NUMBER_OF_STATEMENTS, sum(MetricsSort.NUMBER_OF_STATEMENTS));
         
@@ -228,7 +232,7 @@ public class ClassMetrics extends CommonMetrics implements MetricsSort {
         putMetricValue(MAX_MAX_NUMBER_OF_NESTING, maxForMethods(MAX_NUMBER_OF_NESTING));
     }
     
-    private double getNumPublicMethods(JavaClass jclass) {
+    protected double getNumPublicMethods(JavaClass jclass) {
         int num = 0;
         for (JavaMethod jm : jclass.getMethods()) {
             if (jm.isPublic()) {
@@ -238,7 +242,7 @@ public class ClassMetrics extends CommonMetrics implements MetricsSort {
         return (double)num;
     }
     
-    private double getNumPublicFields(JavaClass jclass) {
+    protected double getNumPublicFields(JavaClass jclass) {
         int num = 0;
         for (JavaField jf : jclass.getFields()) {
             if (jf.isPublic()) {
@@ -248,7 +252,7 @@ public class ClassMetrics extends CommonMetrics implements MetricsSort {
         return (double)num;
     }
     
-    private double getRFC(JavaClass jclass) {
+    protected double getRFC(JavaClass jclass) {
         List<JavaMethod> calledMethods = new ArrayList<JavaMethod>();
         for (JavaMethod jm : jclass.getMethods()) {
             for (JavaMethod m : jm.getCalledMethodsInProject()) {
@@ -258,13 +262,13 @@ public class ClassMetrics extends CommonMetrics implements MetricsSort {
         return (double)(jclass.getMethods().size() + calledMethods.size());
     }
     
-    private double getCBO(JavaClass jclass) {
+    protected double getCBO(JavaClass jclass) {
         List<JavaClass> classes = new ArrayList<JavaClass>();
         collectCoupledClasses(jclass, classes);
         return (double)classes.size();
     }
     
-    private void collectCoupledClasses(JavaClass jclass, List<JavaClass> classes) {
+    protected void collectCoupledClasses(JavaClass jclass, List<JavaClass> classes) {
         for (JavaClass jc : jclass.getAfferentClassesInProject()) {
             if (!classes.contains(jc)) {
                 classes.add(jc);
@@ -273,7 +277,7 @@ public class ClassMetrics extends CommonMetrics implements MetricsSort {
         }
     }
     
-    private double getLCOM(JavaClass jclass) {
+    protected double getLCOM(JavaClass jclass) {
         int accessedMethods = 0;
         int cohesiveMethods = 0;
         
@@ -301,7 +305,7 @@ public class ClassMetrics extends CommonMetrics implements MetricsSort {
         return (double)0;
     }
     
-    private double getWMC(JavaClass jclass) {
+    protected double getWMC(JavaClass jclass) {
         double wmc  = 0;
         for (MethodMetrics mmethod : methods) {
             wmc = wmc + mmethod.getMetricValue(MetricsSort.CYCLOMATIC_COMPLEXITY);
@@ -309,7 +313,7 @@ public class ClassMetrics extends CommonMetrics implements MetricsSort {
         return wmc;
     }
     
-    private Double sum(String sort) {
+    protected Double sum(String sort) {
         double value = 0;
         for (MethodMetrics mmethod : methods) {
             value = value + mmethod.getMetricValue(sort);

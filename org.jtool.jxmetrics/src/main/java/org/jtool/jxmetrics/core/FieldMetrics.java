@@ -23,8 +23,12 @@ public class FieldMetrics extends CommonMetrics implements MetricsSort {
     protected JavaField.Kind kind;
     protected ClassMetrics classMetrics;
     
+    protected FieldMetrics(String fqn, String name, String type, int modifiers) {
+        super(fqn, name, type, modifiers);
+    }
+    
     public FieldMetrics(JavaField jfield, ClassMetrics mclass) {
-        super(jfield.getQualifiedName(), jfield.getName(), jfield.getType(), jfield.getModifiers());
+        this(jfield.getQualifiedName(), jfield.getName(), jfield.getType(), jfield.getModifiers());
         
         kind = jfield.getKind();
         classMetrics = mclass;
@@ -69,7 +73,7 @@ public class FieldMetrics extends CommonMetrics implements MetricsSort {
         return super.getSourceCode(classMetrics.getFullPath());
     }
     
-    private void collectMetrics(JavaField jfield) {
+    protected void collectMetrics(JavaField jfield) {
         putMetricValue(LINES_OF_CODE, new Double(bottom - upper + 1));
         putMetricValue(NUMBER_OF_STATEMENTS, new Double(1.0));
     }
