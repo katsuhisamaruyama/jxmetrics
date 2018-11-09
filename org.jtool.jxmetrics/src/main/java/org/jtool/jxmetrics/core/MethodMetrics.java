@@ -15,6 +15,8 @@ import org.jtool.jxmetrics.measurement.LVAR;
 import org.jtool.jxmetrics.measurement.NOAMD;
 import org.jtool.jxmetrics.measurement.NOEMD;
 import org.jtool.jxmetrics.measurement.NOEFD;
+import org.jtool.jxmetrics.measurement.ATFD;
+import org.jtool.jxmetrics.measurement.FDP;
 import org.jtool.eclipse.javamodel.JavaProject;
 import org.jtool.eclipse.javamodel.JavaMethod;
 import org.jtool.eclipse.javamodel.JavaField;
@@ -113,6 +115,9 @@ public class MethodMetrics extends CommonMetrics {
         putMetricValue(LVAR.Name, new LVAR().calculate(jmethod));
         putMetricValue(NEST.Name, new NEST().calculate(jmethod));
         putMetricValue(PAR.Name, new PAR().calculate(jmethod));
+        
+        putMetricValue(ATFD.Name, new ATFD().calculate(jproject, jmethod));
+        putMetricValue(FDP.Name, new FDP().calculate(jproject, jmethod));
     }
     
     public static Set<String> getAccessedFields(JavaProject jproject, JavaMethod jmethod) {

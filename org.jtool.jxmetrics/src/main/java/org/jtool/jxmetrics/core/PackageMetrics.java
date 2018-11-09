@@ -7,12 +7,13 @@
 package org.jtool.jxmetrics.core;
 
 import org.jtool.jxmetrics.measurement.LOC;
-import org.jtool.jxmetrics.measurement.Metric;
 import org.jtool.jxmetrics.measurement.NOST;
+import org.jtool.jxmetrics.measurement.ATFD;
 import org.jtool.jxmetrics.measurement.CBO;
 import org.jtool.jxmetrics.measurement.DIT;
 import org.jtool.jxmetrics.measurement.NOC;
 import org.jtool.jxmetrics.measurement.RFC;
+import org.jtool.jxmetrics.measurement.TCC;
 import org.jtool.jxmetrics.measurement.WMC;
 import org.jtool.jxmetrics.measurement.LCOM;
 import org.jtool.jxmetrics.measurement.NOACL;
@@ -25,6 +26,7 @@ import org.jtool.jxmetrics.measurement.NOPFD;
 import org.jtool.jxmetrics.measurement.NOMDFD;
 import org.jtool.jxmetrics.measurement.NOAPG;
 import org.jtool.jxmetrics.measurement.NOEPG;
+import org.jtool.jxmetrics.measurement.Metric;
 import org.jtool.eclipse.javamodel.JavaProject;
 import org.jtool.eclipse.javamodel.JavaPackage;
 import org.jtool.eclipse.javamodel.JavaClass;
@@ -163,6 +165,9 @@ public class PackageMetrics extends Metrics {
         putMaxMetricValue(RFC.Name);
         putMaxMetricValue(WMC.Name);
         putMaxMetricValue(LCOM.Name);
+        
+        putMaxMetricValue(ATFD.Name);
+        putMaxMetricValue(TCC.Name);
     }
     
     private void putSumMetricValue(String sort) {

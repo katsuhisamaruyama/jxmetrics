@@ -8,10 +8,12 @@ package org.jtool.jxmetrics.core;
 
 import org.jtool.jxmetrics.measurement.LOC;
 import org.jtool.jxmetrics.measurement.NOST;
+import org.jtool.jxmetrics.measurement.ATFD;
 import org.jtool.jxmetrics.measurement.CBO;
 import org.jtool.jxmetrics.measurement.DIT;
 import org.jtool.jxmetrics.measurement.NOC;
 import org.jtool.jxmetrics.measurement.RFC;
+import org.jtool.jxmetrics.measurement.TCC;
 import org.jtool.jxmetrics.measurement.WMC;
 import org.jtool.jxmetrics.measurement.LCOM;
 import org.jtool.jxmetrics.measurement.NOACL;
@@ -165,6 +167,9 @@ public class ProjectMetrics extends Metrics {
         putMaxMetricValue(RFC.Name);
         putMaxMetricValue(WMC.Name);
         putMaxMetricValue(LCOM.Name);
+        
+        putMaxMetricValue(ATFD.Name);
+        putMaxMetricValue(TCC.Name);
     }
     
     private void putSumMetricValue(String sort) {

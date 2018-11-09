@@ -15,6 +15,8 @@ import org.jtool.jxmetrics.measurement.NOC;
 import org.jtool.jxmetrics.measurement.RFC;
 import org.jtool.jxmetrics.measurement.WMC;
 import org.jtool.jxmetrics.measurement.LCOM;
+import org.jtool.jxmetrics.measurement.ATFD;
+import org.jtool.jxmetrics.measurement.TCC;
 import org.jtool.jxmetrics.measurement.NOACL;
 import org.jtool.jxmetrics.measurement.NOECL;
 import org.jtool.jxmetrics.measurement.NOMD;
@@ -92,7 +94,7 @@ public class ClassMetrics extends CommonMetrics {
         FieldMetrics.sort(fields);
         sortNames(afferentClassNames);
         sortNames(efferentClassNames);
-        collectMetrics(jclass);
+        collectMetrics(jproject, jclass);
         collectMetricsMax();
     }
     
@@ -207,7 +209,7 @@ public class ClassMetrics extends CommonMetrics {
         return super.getSourceCode(getFullPath());
     }
     
-    protected void collectMetrics(JavaClass jclass) {
+    protected void collectMetrics(JavaProject jproject, JavaClass jclass) {
         putMetricValue(LOC.Name, sum(LOC.Name));
         putMetricValue(NOST.Name, sum(NOST.Name));
         
@@ -229,13 +231,9 @@ public class ClassMetrics extends CommonMetrics {
         putMetricValue(RFC.Name, new RFC().calculate(jclass));
         putMetricValue(WMC.Name, new WMC().calculate(jclass));
         putMetricValue(LCOM.Name, new LCOM().calculate(jclass));
-    }
-    
-    public void collectMetricsAfterXMLImport() {
-        MethodMetrics.sort(methods);
-        FieldMetrics.sort(fields);
-        sortNames(afferentClassNames);
-        sortNames(efferentClassNames);
+        
+        putSumMetricValue(ATFD.Name);
+        putMetricValue(TCC.Name, new TCC().calculate(jproject, jclass));
     }
     
     protected void collectMetricsMax() {
@@ -250,6 +248,8 @@ public class ClassMetrics extends CommonMetrics {
         putMaxMetricValue(NEST.Name);
         putMaxMetricValue(LVAR.Name);
         putMaxMetricValue(PAR.Name);
+        
+        putMaxMetricValue(ATFD.Name);
     }
     
     private void putSumMetricValue(String sort) {
@@ -307,6 +307,13 @@ public class ClassMetrics extends CommonMetrics {
             }
         }
         return fieldNames;
+    }
+    
+    public void collectMetricsAfterXMLImport() {
+        MethodMetrics.sort(methods);
+        FieldMetrics.sort(fields);
+        sortNames(afferentClassNames);
+        sortNames(efferentClassNames);
     }
     
     public static void sort(List<ClassMetrics> classes) {
