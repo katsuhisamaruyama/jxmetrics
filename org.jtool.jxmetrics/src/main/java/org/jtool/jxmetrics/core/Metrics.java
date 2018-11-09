@@ -6,8 +6,6 @@
 
 package org.jtool.jxmetrics.core;
 
-import java.util.List;
-import java.util.Map;
 
 import org.jtool.jxmetrics.measurement.CBO;
 import org.jtool.jxmetrics.measurement.DIT;
@@ -29,9 +27,13 @@ import org.jtool.jxmetrics.measurement.NOPMD;
 import org.jtool.jxmetrics.measurement.NOST;
 import org.jtool.jxmetrics.measurement.RFC;
 import org.jtool.jxmetrics.measurement.WMC;
-
-import java.util.HashMap;
+import org.jtool.jxmetrics.measurement.ATFD;
+import org.jtool.jxmetrics.measurement.TCC;
+import org.jtool.jxmetrics.measurement.LAA;
+import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -46,7 +48,8 @@ public class Metrics {
             new LOC(), new NOST(),
             new NOMD(), new NOFD(), new NOMDFD(), new NOPMD(), new NOPFD(),
             new NOACL(), new NOECL(), new NOAMD(), new NOEMD(), new NOEFD(),
-            new CBO(), new DIT(), new NOC(), new RFC(), new WMC(), new LCOM()
+            new CBO(), new DIT(), new NOC(), new RFC(), new WMC(), new LCOM(),
+            new ATFD(), new TCC(), new LAA()
         };
     public static final IMetric DEFAULT_METRIC = new Default();
     
