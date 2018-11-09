@@ -9,6 +9,7 @@ package org.jtool.jxmetrics.measurement;
 import org.jtool.jxmetrics.core.ClassMetrics;
 import org.jtool.jxmetrics.core.MethodMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
+import org.jtool.eclipse.javamodel.JavaMethod;
 
 /**
  * Measures the value of Number of Efferent Fields.
@@ -18,34 +19,28 @@ import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 public class NOEFD extends Metric {
     
     public static final String Name = "NOEFD";
-    private static final String Description = "Number of efferent fields";
+    private static final String Description = "Number of Efferent Fields";
     
     public NOEFD() {
         super(Name, Description);
     }
     
-    @Override
-    public boolean isClassMetric() {
-        return true;
-    }
-    
-    @Override
-    public boolean isFieldMetric() {
-        return true;
+    public double calculate(JavaMethod jmethod) {
+        return (double)jmethod.getAccessedFields().size();
     }
     
     @Override
     public double valueOf(ClassMetrics mclass) throws UnsupportedMetricsException {
-        return mclass.getMetricValueWithException(NUMBER_OF_EFFERENT_FIELDS);
+        return mclass.getMetricValueWithException(Name);
     }
     
     @Override
     public double valueOf(MethodMetrics mmethod) throws UnsupportedMetricsException {
-        return mmethod.getMetricValueWithException(NUMBER_OF_EFFERENT_FIELDS);
+        return mmethod.getMetricValueWithException(Name);
     }
     
     @Override
     public double maxValueIn(ClassMetrics mclass) throws UnsupportedMetricsException {
-        return mclass.getMetricValueWithException(MAX_NUMBER_OF_EFFERENT_FIELDS);
+        return mclass.getMetricValueWithException(MAX + Name);
     }
 }

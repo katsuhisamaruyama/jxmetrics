@@ -6,12 +6,11 @@
 
 package org.jtool.jxmetrics.measurement;
 
-import org.jtool.jxmetrics.core.ClassMetrics;
-import org.jtool.jxmetrics.core.FieldMetrics;
-import org.jtool.jxmetrics.core.MethodMetrics;
-import org.jtool.jxmetrics.core.PackageMetrics;
 import org.jtool.jxmetrics.core.ProjectMetrics;
-import org.jtool.jxmetrics.core.MetricsSort;
+import org.jtool.jxmetrics.core.PackageMetrics;
+import org.jtool.jxmetrics.core.ClassMetrics;
+import org.jtool.jxmetrics.core.MethodMetrics;
+import org.jtool.jxmetrics.core.FieldMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 
 /**
@@ -19,10 +18,12 @@ import org.jtool.jxmetrics.core.UnsupportedMetricsException;
  * 
  * @author Katsuhisa Maruyama
  */
-public class Metric implements IMetric, MetricsSort {
+public class Metric implements IMetric {
     
     private String name = "";
     private String description = "";
+    
+    public static final String MAX = "MAX_";
     
     public Metric() {
     }
@@ -40,31 +41,6 @@ public class Metric implements IMetric, MetricsSort {
     @Override
     public String getDescription() {
         return description;
-    }
-    
-    @Override
-    public boolean isProjectMetric() {
-        return false;
-    }
-    
-    @Override
-    public boolean isPackageMetric() {
-        return false;
-    }
-    
-    @Override
-    public boolean isClassMetric() {
-        return false;
-    }
-    
-    @Override
-    public boolean isMethodMetric() {
-        return false;
-    }
-    
-    @Override
-    public boolean isFieldMetric() {
-        return false;
     }
     
     @Override

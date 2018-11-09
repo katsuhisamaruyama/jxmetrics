@@ -6,12 +6,14 @@
 
 package org.jtool.jxmetrics.measurement;
 
-import org.jtool.jxmetrics.core.ClassMetrics;
-import org.jtool.jxmetrics.core.FieldMetrics;
-import org.jtool.jxmetrics.core.MethodMetrics;
-import org.jtool.jxmetrics.core.PackageMetrics;
 import org.jtool.jxmetrics.core.ProjectMetrics;
+import org.jtool.jxmetrics.core.PackageMetrics;
+import org.jtool.jxmetrics.core.ClassMetrics;
+import org.jtool.jxmetrics.core.MethodMetrics;
+import org.jtool.jxmetrics.core.FieldMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
+import org.jtool.eclipse.javamodel.JavaField;
+import org.jtool.eclipse.javamodel.JavaMethod;
 
 /**
  * Measures the value of Number of Statements.
@@ -21,74 +23,57 @@ import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 public class NOST extends Metric {
     
     public static final String Name = "NOST";
-    private static final String Description = "Number of statements";
+    private static final String Description = "Number of Statements";
     
     public NOST() {
         super(Name, Description);
     }
     
-    @Override
-    public boolean isProjectMetric() {
-        return true;
+    public double calculate(JavaMethod jmethod) {
+        return (double)jmethod.getNumberOfStatements();
     }
     
-    @Override
-    public boolean isPackageMetric() {
-        return true;
-    }
-    
-    @Override
-    public boolean isClassMetric() {
-        return true;
-    }
-    
-    @Override
-    public boolean isMethodMetric() {
-        return true;
-    }
-    
-    @Override
-    public boolean isFieldMetric() {
-        return true;
+    public double calculate(JavaField jfield)  {
+        return 1.0;
     }
     
     @Override
     public double valueOf(ProjectMetrics mproject) throws UnsupportedMetricsException {
-        return mproject.getMetricValueWithException(NUMBER_OF_STATEMENTS);
+        return mproject.getMetricValueWithException(Name);
     }
     
     @Override
     public double valueOf(PackageMetrics mpackage) throws UnsupportedMetricsException {
-        return mpackage.getMetricValueWithException(NUMBER_OF_STATEMENTS);
+        return mpackage.getMetricValueWithException(Name);
     }
     
     @Override
     public double valueOf(ClassMetrics mclass) throws UnsupportedMetricsException {
-        return mclass.getMetricValueWithException(NUMBER_OF_STATEMENTS);
+        return mclass.getMetricValueWithException(Name);
     }
     
     @Override
     public double valueOf(MethodMetrics mmethod) throws UnsupportedMetricsException {
-        return mmethod.getMetricValueWithException(NUMBER_OF_STATEMENTS);
+        return mmethod.getMetricValueWithException(Name);
     }
     
     @Override
     public double valueOf(FieldMetrics mfield) throws UnsupportedMetricsException {
-        return mfield.getMetricValueWithException(NUMBER_OF_STATEMENTS);
+        return mfield.getMetricValueWithException(Name);
     }
     
     @Override
     public double maxValueIn(ProjectMetrics mproject) throws UnsupportedMetricsException {
-        return mproject.getMetricValueWithException(MAX_NUMBER_OF_STATEMENTS);
+        return mproject.getMetricValueWithException(MAX + Name);
     }
     
     @Override
     public double maxValueIn(PackageMetrics mpackage) throws UnsupportedMetricsException {
-        return mpackage.getMetricValueWithException(MAX_NUMBER_OF_STATEMENTS);
+        return mpackage.getMetricValueWithException(MAX + Name);
     }
     
     @Override
     public double maxValueIn(ClassMetrics mclass) throws UnsupportedMetricsException {
-        return mclass.getMetricValueWithException(MAX_NUMBER_OF_STATEMENTS);
+        return mclass.getMetricValueWithException(MAX + Name);
     }
 }

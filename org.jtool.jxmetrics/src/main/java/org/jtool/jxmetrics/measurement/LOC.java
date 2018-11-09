@@ -6,12 +6,14 @@
 
 package org.jtool.jxmetrics.measurement;
 
+import org.jtool.jxmetrics.core.ProjectMetrics;
+import org.jtool.jxmetrics.core.PackageMetrics;
 import org.jtool.jxmetrics.core.ClassMetrics;
 import org.jtool.jxmetrics.core.FieldMetrics;
 import org.jtool.jxmetrics.core.MethodMetrics;
-import org.jtool.jxmetrics.core.PackageMetrics;
-import org.jtool.jxmetrics.core.ProjectMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
+import org.jtool.eclipse.javamodel.JavaMethod;
+import org.jtool.eclipse.javamodel.JavaField;
 
 /**
  * Measures the value of Lines of Code.
@@ -21,74 +23,61 @@ import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 public class LOC extends Metric {
     
     public static final String Name = "LOC";
-    private static final String Description = "Lines of code";
+    private static final String Description = "Lines of Code";
     
     public LOC() {
         super(Name, Description);
     }
     
-    @Override
-    public boolean isProjectMetric() {
-        return true;
+    public double calculate(JavaMethod jmethod) {
+        int upper = jmethod.getCodeRange().getUpperLineNumber();
+        int bottom = jmethod.getCodeRange().getBottomLineNumber();
+        return (double)(bottom - upper + 1);
     }
     
-    @Override
-    public boolean isPackageMetric() {
-        return true;
-    }
-    
-    @Override
-    public boolean isClassMetric() {
-        return true;
-    }
-    
-    @Override
-    public boolean isMethodMetric() {
-        return true;
-    }
-    
-    @Override
-    public boolean isFieldMetric() {
-        return true;
+    public double calculate(JavaField jfield)  {
+        int upper = jfield.getCodeRange().getUpperLineNumber();
+        int bottom =jfield.getCodeRange().getBottomLineNumber();
+        return (double)(bottom - upper + 1);
     }
     
     @Override
     public double valueOf(ProjectMetrics mproject) throws UnsupportedMetricsException {
-        return mproject.getMetricValueWithException(LINES_OF_CODE);
+        return mproject.getMetricValueWithException(Name);
     }
     
     @Override
     public double valueOf(PackageMetrics mpackage) throws UnsupportedMetricsException {
-        return mpackage.getMetricValueWithException(LINES_OF_CODE);
+        return mpackage.getMetricValueWithException(Name);
     }
     
     @Override
     public double valueOf(ClassMetrics mclass) throws UnsupportedMetricsException {
-        return mclass.getMetricValueWithException(LINES_OF_CODE);
+        return mclass.getMetricValueWithException(Name);
     }
     
     @Override
     public double valueOf(MethodMetrics mmethod) throws UnsupportedMetricsException {
-        return mmethod.getMetricValueWithException(LINES_OF_CODE);
+        return mmethod.getMetricValueWithException(Name);
     }
     
     @Override
     public double valueOf(FieldMetrics mfield) throws UnsupportedMetricsException {
-        return mfield.getMetricValueWithException(LINES_OF_CODE);
+        return mfield.getMetricValueWithException(Name);
     }
     
     @Override
     public double maxValueIn(ProjectMetrics mproject) throws UnsupportedMetricsException {
-        return mproject.getMetricValueWithException(MAX_LINES_OF_CODE);
+        return mproject.getMetricValueWithException(MAX + Name);
     }
     
     @Override
     public double maxValueIn(PackageMetrics mpackage) throws UnsupportedMetricsException {
-        return mpackage.getMetricValueWithException(MAX_LINES_OF_CODE);
+        return mpackage.getMetricValueWithException(MAX + Name);
     }
     
     @Override
     public double maxValueIn(ClassMetrics mclass) throws UnsupportedMetricsException {
-        return mclass.getMetricValueWithException(MAX_LINES_OF_CODE);
+        return mclass.getMetricValueWithException(MAX + Name);
     }
 }

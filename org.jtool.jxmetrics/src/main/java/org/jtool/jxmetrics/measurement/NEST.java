@@ -9,33 +9,33 @@ package org.jtool.jxmetrics.measurement;
 import org.jtool.jxmetrics.core.ClassMetrics;
 import org.jtool.jxmetrics.core.MethodMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
+import org.jtool.eclipse.javamodel.JavaMethod;
 
 /**
  * Measures the value of Maximum Number of Nesting.
  * 
  * @author Katsuhisa Maruyama
  */
-public class MNON extends Metric {
+public class NEST extends Metric {
     
-    public static final String Name = "MNON";
-    private static final String Description = "Maximum number of nesting";
+    public static final String Name = "NEST";
+    private static final String Description = "Maximum Number of Nesting";
     
-    public MNON() {
+    public NEST() {
         super(Name, Description);
     }
     
-    @Override
-    public boolean isMethodMetric() {
-        return true;
+    public double calculate(JavaMethod jmethod) {
+        return (double)jmethod.getMaximumNumberOfNesting();
     }
     
     @Override
     public double valueOf(MethodMetrics mmethod) throws UnsupportedMetricsException {
-        return mmethod.getMetricValueWithException(MAX_NUMBER_OF_NESTING);
+        return mmethod.getMetricValueWithException(Name);
     }
     
     @Override
     public double maxValueIn(ClassMetrics mclass) throws UnsupportedMetricsException {
-        return mclass.getMetricValueWithException(MAX_MAX_NUMBER_OF_NESTING);
+        return mclass.getMetricValueWithException(MAX + Name);
     }
 }

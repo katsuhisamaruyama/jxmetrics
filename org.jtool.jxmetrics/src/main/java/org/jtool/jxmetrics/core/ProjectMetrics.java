@@ -6,12 +6,32 @@
 
 package org.jtool.jxmetrics.core;
 
+import org.jtool.jxmetrics.measurement.LOC;
+import org.jtool.jxmetrics.measurement.NOST;
+import org.jtool.jxmetrics.measurement.CBO;
+import org.jtool.jxmetrics.measurement.DIT;
+import org.jtool.jxmetrics.measurement.NOC;
+import org.jtool.jxmetrics.measurement.RFC;
+import org.jtool.jxmetrics.measurement.WMC;
+import org.jtool.jxmetrics.measurement.LCOM;
+import org.jtool.jxmetrics.measurement.NOACL;
+import org.jtool.jxmetrics.measurement.NOECL;
+import org.jtool.jxmetrics.measurement.NOCL;
+import org.jtool.jxmetrics.measurement.NOMD;
+import org.jtool.jxmetrics.measurement.NOFD;
+import org.jtool.jxmetrics.measurement.NOPMD;
+import org.jtool.jxmetrics.measurement.NOPFD;
+import org.jtool.jxmetrics.measurement.NOMDFD;
+import org.jtool.jxmetrics.measurement.NOFILE;
+import org.jtool.jxmetrics.measurement.NOPG;
+import org.jtool.jxmetrics.measurement.Metric;
 import org.jtool.eclipse.javamodel.JavaProject;
 import org.jtool.eclipse.util.TimeInfo;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
 /**
@@ -19,7 +39,7 @@ import java.time.ZonedDateTime;
  * 
  * @author Katsuhisa Maruyama
  */
-public class ProjectMetrics extends Metrics implements MetricsSort {
+public class ProjectMetrics extends Metrics {
     
     public static final String Id = "ProjectMetrics";
     
@@ -101,50 +121,58 @@ public class ProjectMetrics extends Metrics implements MetricsSort {
     }
     
     private void collectMetrics(JavaProject jproject) {
-        putMetricValue(LINES_OF_CODE, sum(LINES_OF_CODE));
-        putMetricValue(NUMBER_OF_STATEMENTS, sum(NUMBER_OF_STATEMENTS));
+        putSumMetricValue(LOC.Name);
+        putSumMetricValue(NOST.Name);
         
-        putMetricValue(NUMBER_OF_FILES, new Double(jproject.getFiles().size()));
-        putMetricValue(NUMBER_OF_PACKAGES, new Double(jproject.getPackages().size()));
+        putMetricValue(NOFILE.Name, new NOFILE().calculate(jproject));
+        putMetricValue(NOPG.Name, new NOPG().calculate(jproject));
         
-        putMetricValue(NUMBER_OF_CLASSES, sum(NUMBER_OF_CLASSES));
-        putMetricValue(NUMBER_OF_METHODS, sum(NUMBER_OF_METHODS));
-        putMetricValue(NUMBER_OF_FIELDS, sum(NUMBER_OF_FIELDS));
-        putMetricValue(NUMBER_OF_METHODS_AND_FIELDS, sum(NUMBER_OF_METHODS_AND_FIELDS));
-        putMetricValue(NUMBER_OF_PUBLIC_METHODS, sum(NUMBER_OF_PUBLIC_METHODS));
-        putMetricValue(NUMBER_OF_PUBLIC_FIELDS, sum(NUMBER_OF_PUBLIC_FIELDS));
+        putSumMetricValue(NOCL.Name);
+        putSumMetricValue(NOMD.Name);
+        putSumMetricValue(NOFD.Name);
+        putSumMetricValue(NOMDFD.Name);
+        putSumMetricValue(NOPMD.Name);
+        putSumMetricValue(NOPFD.Name);
         
-        putMetricValue(NUMBER_OF_AFFERENT_CLASSES, sum(NUMBER_OF_AFFERENT_CLASSES));
-        putMetricValue(NUMBER_OF_EFFERENT_CLASSES, sum(NUMBER_OF_EFFERENT_CLASSES));
+        putSumMetricValue(NOACL.Name);
+        putSumMetricValue(NOECL.Name);
         
-        putMetricValue(COUPLING_BETWEEN_OBJECTS, sum(COUPLING_BETWEEN_OBJECTS));
-        putMetricValue(DEPTH_OF_INHERITANCE_TREE, sum(DEPTH_OF_INHERITANCE_TREE));
-        putMetricValue(NUMBER_OF_CHILDREN, sum(NUMBER_OF_CHILDREN));
-        putMetricValue(RESPONSE_FOR_CLASS, sum(RESPONSE_FOR_CLASS));
-        putMetricValue(WEIGHTED_METHODS_PER_CLASS, sum(WEIGHTED_METHODS_PER_CLASS));
-        putMetricValue(LACK_OF_COHESION_OF_METHODS, sum(LACK_OF_COHESION_OF_METHODS));
+        putSumMetricValue(CBO.Name);
+        putSumMetricValue(DIT.Name);
+        putSumMetricValue(NOC.Name);
+        putSumMetricValue(RFC.Name);
+        putSumMetricValue(WMC.Name);
+        putSumMetricValue(LCOM.Name);
     }
     
     protected void collectMetricsMax() {
-        putMetricValue(MAX_LINES_OF_CODE, max(LINES_OF_CODE));
-        putMetricValue(MAX_NUMBER_OF_STATEMENTS, max(NUMBER_OF_STATEMENTS));
+        putMaxMetricValue(LOC.Name);
+        putMaxMetricValue(NOST.Name);
         
-        putMetricValue(MAX_NUMBER_OF_CLASSES, max(NUMBER_OF_CLASSES));
-        putMetricValue(MAX_NUMBER_OF_METHODS, max(NUMBER_OF_METHODS));
-        putMetricValue(MAX_NUMBER_OF_FIELDS, max(NUMBER_OF_FIELDS));
-        putMetricValue(MAX_NUMBER_OF_METHODS_AND_FIELDS, max(NUMBER_OF_METHODS_AND_FIELDS));
-        putMetricValue(MAX_NUMBER_OF_PUBLIC_METHODS, max(NUMBER_OF_PUBLIC_METHODS));
-        putMetricValue(MAX_NUMBER_OF_PUBLIC_FIELDS, max(NUMBER_OF_PUBLIC_FIELDS));
+        putMaxMetricValue(NOCL.Name);
+        putMaxMetricValue(NOMD.Name);
+        putMaxMetricValue(NOFD.Name);
+        putMaxMetricValue(NOMDFD.Name);
+        putMaxMetricValue(NOPMD.Name);
+        putMaxMetricValue(NOPFD.Name);
         
-        putMetricValue(MAX_NUMBER_OF_AFFERENT_CLASSES, max(NUMBER_OF_AFFERENT_CLASSES));
-        putMetricValue(MAX_NUMBER_OF_EFFERENT_CLASSES, max(NUMBER_OF_EFFERENT_CLASSES));
+        putMaxMetricValue(NOACL.Name);
+        putMaxMetricValue(NOECL.Name);
         
-        putMetricValue(MAX_COUPLING_BETWEEN_OBJECTS, max(COUPLING_BETWEEN_OBJECTS));
-        putMetricValue(MAX_DEPTH_OF_INHERITANCE_TREE, max(DEPTH_OF_INHERITANCE_TREE));
-        putMetricValue(MAX_NUMBER_OF_CHILDREN, max(NUMBER_OF_CHILDREN));
-        putMetricValue(MAX_RESPONSE_FOR_CLASS, max(RESPONSE_FOR_CLASS));
-        putMetricValue(MAX_WEIGHTED_METHODS_PER_CLASS, max(WEIGHTED_METHODS_PER_CLASS));
-        putMetricValue(MAX_LACK_OF_COHESION_OF_METHODS, max(LACK_OF_COHESION_OF_METHODS));
+        putMaxMetricValue(CBO.Name);
+        putMaxMetricValue(DIT.Name);
+        putMaxMetricValue(NOC.Name);
+        putMaxMetricValue(RFC.Name);
+        putMaxMetricValue(WMC.Name);
+        putMaxMetricValue(LCOM.Name);
+    }
+    
+    private void putSumMetricValue(String sort) {
+        metricValues.put(sort, sum(sort));
+    }
+    
+    private void putMaxMetricValue(String sort) {
+        metricValues.put(Metric.MAX + sort, max(sort));
     }
     
     private Double sum(String sort) {
@@ -152,7 +180,7 @@ public class ProjectMetrics extends Metrics implements MetricsSort {
         for (PackageMetrics mpackage : packages) {
             value = value + mpackage.getMetricValue(sort);
         }
-        return new Double(value);
+        return new BigDecimal(value).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
     
     protected Double max(String sort) {
@@ -162,7 +190,7 @@ public class ProjectMetrics extends Metrics implements MetricsSort {
                 value = Math.max(value, mclass.getMetricValue(sort));
             }
         }
-        return new Double(value);
+        return new BigDecimal(value).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
     
     public void collectMetricsAfterXMLImport() {
@@ -175,6 +203,7 @@ public class ProjectMetrics extends Metrics implements MetricsSort {
     public static void sort(List<ProjectMetrics> projects) {
         Collections.sort(projects, new Comparator<ProjectMetrics>() {
             
+            @Override
             public int compare(ProjectMetrics project1, ProjectMetrics project2) {
                 long time1 = project1.getTimeAsLong();
                 long time2 = project2.getTimeAsLong();

@@ -6,6 +6,9 @@
 
 package org.jtool.jxmetrics.core;
 
+import org.jtool.jxmetrics.measurement.LOC;
+import org.jtool.jxmetrics.measurement.NOST;
+import org.jtool.eclipse.javamodel.JavaProject;
 import org.jtool.eclipse.javamodel.JavaField;
 import java.util.List;
 import java.util.Collections;
@@ -16,7 +19,7 @@ import java.util.Comparator;
  * 
  * @author Katsuhisa Maruyama
  */
-public class FieldMetrics extends CommonMetrics implements MetricsSort {
+public class FieldMetrics extends CommonMetrics {
     
     public static final String Id = "FieldMetrics";
     
@@ -27,7 +30,7 @@ public class FieldMetrics extends CommonMetrics implements MetricsSort {
         super(fqn, name, type, modifiers);
     }
     
-    public FieldMetrics(JavaField jfield, ClassMetrics mclass) {
+    public FieldMetrics(JavaProject jproject, JavaField jfield, ClassMetrics mclass) {
         this(jfield.getQualifiedName(), jfield.getName(), jfield.getType(), jfield.getModifiers());
         
         kind = jfield.getKind();
@@ -39,7 +42,7 @@ public class FieldMetrics extends CommonMetrics implements MetricsSort {
         int bottom = jfield.getCodeRange().getBottomLineNumber();
         setCodeProperties(start, end, upper, bottom);
         
-        collectMetrics(jfield);
+        collectMetrics(jproject, jfield);
     }
     
     public FieldMetrics(String fqn, String name, String type, int modifiers, String kindStr, ClassMetrics mclass) {
@@ -73,14 +76,15 @@ public class FieldMetrics extends CommonMetrics implements MetricsSort {
         return super.getSourceCode(classMetrics.getFullPath());
     }
     
-    protected void collectMetrics(JavaField jfield) {
-        putMetricValue(LINES_OF_CODE, new Double(bottom - upper + 1));
-        putMetricValue(NUMBER_OF_STATEMENTS, new Double(1.0));
+    protected void collectMetrics(JavaProject jproject, JavaField jfield) {
+        putMetricValue(LOC.Name, new LOC().calculate(jfield));
+        putMetricValue(NOST.Name,new NOST().calculate(jfield));
     }
     
     public static void sort(List<FieldMetrics> mfields) {
         Collections.sort(mfields, new Comparator<FieldMetrics>() {
             
+            @Override
             public int compare(FieldMetrics mfield1, FieldMetrics mfield2) {
                 return mfield1.getName().compareTo(mfield2.getName());
             }

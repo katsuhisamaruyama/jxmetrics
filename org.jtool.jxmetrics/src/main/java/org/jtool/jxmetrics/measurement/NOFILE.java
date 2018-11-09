@@ -8,28 +8,28 @@ package org.jtool.jxmetrics.measurement;
 
 import org.jtool.jxmetrics.core.ProjectMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
+import org.jtool.eclipse.javamodel.JavaProject;
 
 /**
  * Measures the value of Number of Files.
  * 
  * @author Katsuhisa Maruyama
  */
-public class NOFL extends Metric {
+public class NOFILE extends Metric {
     
-    public static final String Name = "NOFL";
-    private static final String Description = "Number of files";
+    public static final String Name = "NOFILE";
+    private static final String Description = "Number of Files";
     
-    public NOFL() {
+    public NOFILE() {
         super(Name, Description);
     }
     
-    @Override
-    public boolean isProjectMetric() {
-        return true;
+    public double calculate(JavaProject jproject) {
+        return (double)jproject.getFiles().size();
     }
     
     @Override
     public double valueOf(ProjectMetrics mproject) throws UnsupportedMetricsException {
-        return mproject.getMetricValueWithException(NUMBER_OF_FILES);
+        return mproject.getMetricValueWithException(Name);
     }
 }

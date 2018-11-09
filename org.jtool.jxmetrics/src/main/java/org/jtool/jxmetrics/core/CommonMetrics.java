@@ -6,6 +6,9 @@
 
 package org.jtool.jxmetrics.core;
 
+import org.jtool.eclipse.javamodel.JavaClass;
+import org.jtool.eclipse.javamodel.JavaMethod;
+import org.jtool.eclipse.javamodel.JavaField;
 import org.eclipse.jdt.core.dom.Modifier;
 
 /**
@@ -37,6 +40,28 @@ public class CommonMetrics extends Metrics {
         this.end = end;
         this.upper = upper;
         this.bottom = bottom;
+    }
+    
+    protected void setCodeProperties(JavaClass jclass) {
+        this.start = jclass.getCodeRange().getStartPosition();
+        this.end = jclass.getCodeRange().getEndPosition();
+        this.upper = jclass.getCodeRange().getUpperLineNumber();
+        this.bottom = jclass.getCodeRange().getBottomLineNumber();
+    }
+    
+    protected void setCodeProperties(JavaMethod jmethod) {
+        this.start = jmethod.getCodeRange().getStartPosition();
+        this.end = jmethod.getCodeRange().getEndPosition();
+        this.upper = jmethod.getCodeRange().getUpperLineNumber();
+        this.bottom = jmethod.getCodeRange().getBottomLineNumber();
+    }
+    
+    protected void setCodeProperties(JavaField jfield) {
+        this.start = jfield.getCodeRange().getStartPosition();
+        this.end = jfield.getCodeRange().getEndPosition();
+        this.upper = jfield.getCodeRange().getUpperLineNumber();
+        this.bottom = jfield.getCodeRange().getBottomLineNumber();
+        
     }
     
     public String getName() {

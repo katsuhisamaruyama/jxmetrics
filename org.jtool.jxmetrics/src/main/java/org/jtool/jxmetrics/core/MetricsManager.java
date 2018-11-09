@@ -72,7 +72,7 @@ public class MetricsManager {
         ConsoleProgressMonitor pm = new ConsoleProgressMonitor();
         pm.begin(size);
         for (JavaPackage jpackage : jproject.getPackages()) {
-            PackageMetrics mpackage = new PackageMetrics(jpackage, mproject);
+            PackageMetrics mpackage = new PackageMetrics(jproject, jpackage, mproject);
             mproject.addPackage(mpackage);
             pm.work(1);
             Logger.getInstance().printLog("-Calculated " + mpackage.getName());

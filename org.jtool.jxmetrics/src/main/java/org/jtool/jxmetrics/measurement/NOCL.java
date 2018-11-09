@@ -6,9 +6,10 @@
 
 package org.jtool.jxmetrics.measurement;
 
-import org.jtool.jxmetrics.core.PackageMetrics;
 import org.jtool.jxmetrics.core.ProjectMetrics;
+import org.jtool.jxmetrics.core.PackageMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
+import org.jtool.eclipse.javamodel.JavaPackage;
 
 /**
  * Measures the value of Number of Classes.
@@ -18,39 +19,33 @@ import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 public class NOCL extends Metric {
     
     public static final String Name = "NOCL";
-    private static final String Description = "Number of classes";
+    private static final String Description = "Number of Classes";
     
     public NOCL() {
         super(Name, Description);
     }
     
-    @Override
-    public boolean isProjectMetric() {
-        return true;
-    }
-    
-    @Override
-    public boolean isPackageMetric() {
-        return true;
+    public double calculate(JavaPackage jpackage) {
+        return (double)jpackage.getClasses().size();
     }
     
     @Override
     public double valueOf(ProjectMetrics mproject) throws UnsupportedMetricsException {
-        return mproject.getMetricValueWithException(NUMBER_OF_CLASSES);
+        return mproject.getMetricValueWithException(Name);
     }
     
     @Override
     public double valueOf(PackageMetrics mpackage) throws UnsupportedMetricsException {
-        return mpackage.getMetricValueWithException(NUMBER_OF_CLASSES);
+        return mpackage.getMetricValueWithException(Name);
     }
     
     @Override
     public double maxValueIn(ProjectMetrics mproject) throws UnsupportedMetricsException {
-        return mproject.getMetricValueWithException(MAX_NUMBER_OF_CLASSES);
+        return mproject.getMetricValueWithException(MAX + Name);
     }
     
     @Override
     public double maxValueIn(PackageMetrics mpackage) throws UnsupportedMetricsException {
-        return mpackage.getMetricValueWithException(MAX_NUMBER_OF_CLASSES);
+        return mpackage.getMetricValueWithException(MAX + Name);
     }
 }

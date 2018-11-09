@@ -8,6 +8,7 @@ package org.jtool.jxmetrics.measurement;
 
 import org.jtool.jxmetrics.core.ProjectMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
+import org.jtool.eclipse.javamodel.JavaProject;
 
 /**
  * Measures the value of Number of Packages.
@@ -17,19 +18,18 @@ import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 public class NOPG extends Metric {
     
     public static final String Name = "NOPG";
-    private static final String Description = "Number of packages";
+    private static final String Description = "Number of Packages";
     
     public NOPG() {
         super(Name, Description);
     }
     
-    @Override
-    public boolean isProjectMetric() {
-        return true;
+    public double calculate(JavaProject jproject) {
+        return (double)jproject.getPackages().size();
     }
     
     @Override
     public double valueOf(ProjectMetrics mproject) throws UnsupportedMetricsException {
-        return mproject.getMetricValueWithException(NUMBER_OF_PACKAGES);
+        return mproject.getMetricValueWithException(Name);
     }
 }

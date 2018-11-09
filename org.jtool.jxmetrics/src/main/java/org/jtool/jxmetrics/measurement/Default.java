@@ -6,11 +6,11 @@
 
 package org.jtool.jxmetrics.measurement;
 
-import org.jtool.jxmetrics.core.ClassMetrics;
-import org.jtool.jxmetrics.core.FieldMetrics;
-import org.jtool.jxmetrics.core.MethodMetrics;
-import org.jtool.jxmetrics.core.PackageMetrics;
 import org.jtool.jxmetrics.core.ProjectMetrics;
+import org.jtool.jxmetrics.core.PackageMetrics;
+import org.jtool.jxmetrics.core.ClassMetrics;
+import org.jtool.jxmetrics.core.MethodMetrics;
+import org.jtool.jxmetrics.core.FieldMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 
 /**
@@ -25,31 +25,6 @@ public class Default extends Metric {
     
     public Default() {
         super(Name, Description);
-    }
-    
-    @Override
-    public boolean isProjectMetric() {
-        return true;
-    }
-    
-    @Override
-    public boolean isPackageMetric() {
-        return true;
-    }
-    
-    @Override
-    public boolean isClassMetric() {
-        return true;
-    }
-    
-    @Override
-    public boolean isMethodMetric() {
-        return true;
-    }
-    
-    @Override
-    public boolean isFieldMetric() {
-        return true;
     }
     
     @Override

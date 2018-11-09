@@ -9,33 +9,33 @@ package org.jtool.jxmetrics.measurement;
 import org.jtool.jxmetrics.core.ClassMetrics;
 import org.jtool.jxmetrics.core.MethodMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
+import org.jtool.eclipse.javamodel.JavaMethod;
 
 /**
  * Measures the value of Cyclomatic Complexity.
  * 
  * @author Katsuhisa Maruyama
  */
-public class CC extends Metric {
+public class CYCLO extends Metric {
     
-    public static final String Name = "CC";
-    private static final String Description = "Cyclomatic complexity";
+    public static final String Name = "CYCLO";
+    private static final String Description = "Cyclomatic Complexity";
     
-    public CC() {
+    public CYCLO() {
         super(Name, Description);
     }
     
-    @Override
-    public boolean isMethodMetric() {
-        return true;
+    public double calculate(JavaMethod jmethod) {
+        return jmethod.getCyclomaticNumber();
     }
     
     @Override
     public double valueOf(MethodMetrics mmethod) throws UnsupportedMetricsException {
-        return mmethod.getMetricValueWithException(CYCLOMATIC_COMPLEXITY);
+        return mmethod.getMetricValueWithException(Name);
     }
     
     @Override
     public double maxValueIn(ClassMetrics mclass) throws UnsupportedMetricsException {
-        return mclass.getMetricValueWithException(MAX_CYCLOMATIC_COMPLEXITY);
+        return mclass.getMetricValueWithException(MAX + Name);
     }
 }

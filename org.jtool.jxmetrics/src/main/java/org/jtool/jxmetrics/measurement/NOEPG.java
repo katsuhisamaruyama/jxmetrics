@@ -6,9 +6,10 @@
 
 package org.jtool.jxmetrics.measurement;
 
-import org.jtool.jxmetrics.core.PackageMetrics;
 import org.jtool.jxmetrics.core.ProjectMetrics;
+import org.jtool.jxmetrics.core.PackageMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
+import org.jtool.eclipse.javamodel.JavaPackage;
 
 /**
  * Measures the value of Number of Efferent Packages.
@@ -18,24 +19,23 @@ import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 public class NOEPG extends Metric {
     
     public static final String Name = "NOEPG";
-    private static final String Description = "Number of efferent packages";
+    private static final String Description = "Number of Efferent Packages";
     
     public NOEPG() {
         super(Name, Description);
     }
     
-    @Override
-    public boolean isPackageMetric() {
-        return true;
+    public double calculate(JavaPackage jpackage) {
+        return (double)jpackage.getEfferentJavaPackages().size();
     }
     
     @Override
     public double valueOf(PackageMetrics mpackage) throws UnsupportedMetricsException {
-        return mpackage.getMetricValueWithException(NUMBER_OF_EFFERENT_PACKAGES);
+        return mpackage.getMetricValueWithException(Name);
     }
     
     @Override
     public double maxValueIn(ProjectMetrics mproject) throws UnsupportedMetricsException {
-        return mproject.getMetricValueWithException(MAX_NUMBER_OF_EFFERENT_PACKAGES);
+        return mproject.getMetricValueWithException(MAX + Name);
     }
 }

@@ -6,10 +6,11 @@
 
 package org.jtool.jxmetrics.measurement;
 
-import org.jtool.jxmetrics.core.ClassMetrics;
-import org.jtool.jxmetrics.core.PackageMetrics;
 import org.jtool.jxmetrics.core.ProjectMetrics;
+import org.jtool.jxmetrics.core.PackageMetrics;
+import org.jtool.jxmetrics.core.ClassMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
+import org.jtool.eclipse.javamodel.JavaClass;
 
 /**
  * Measures the value of Number of Efferent Classes.
@@ -19,39 +20,38 @@ import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 public class NOECL extends Metric {
     
     public static final String Name = "NOECL";
-    private static final String Description = "Number of efferent classes";
+    private static final String Description = "Number of Efferent Classes";
     
     public NOECL() {
         super(Name, Description);
     }
     
-    @Override
-    public boolean isClassMetric() {
-        return true;
+    public double calculate(JavaClass jclass) {
+        return (double)jclass.getEfferentClassesInProject().size();
     }
     
     @Override
     public double valueOf(ProjectMetrics mproject) throws UnsupportedMetricsException {
-        return mproject.getMetricValueWithException(NUMBER_OF_EFFERENT_CLASSES);
+        return mproject.getMetricValueWithException(Name);
     }
     
     @Override
     public double valueOf(PackageMetrics mpackage) throws UnsupportedMetricsException {
-        return mpackage.getMetricValueWithException(NUMBER_OF_EFFERENT_CLASSES);
+        return mpackage.getMetricValueWithException(Name);
     }
     
     @Override
     public double valueOf(ClassMetrics mclass) throws UnsupportedMetricsException {
-        return mclass.getMetricValueWithException(NUMBER_OF_EFFERENT_CLASSES);
+        return mclass.getMetricValueWithException(Name);
     }
     
     @Override
     public double maxValueIn(ProjectMetrics mproject) throws UnsupportedMetricsException {
-        return mproject.getMetricValueWithException(MAX_NUMBER_OF_EFFERENT_CLASSES);
+        return mproject.getMetricValueWithException(MAX + Name);
     }
     
     @Override
     public double maxValueIn(PackageMetrics mpackage) throws UnsupportedMetricsException {
-        return mpackage.getMetricValueWithException(MAX_NUMBER_OF_EFFERENT_CLASSES);
+        return mpackage.getMetricValueWithException(MAX + Name);
     }
 }

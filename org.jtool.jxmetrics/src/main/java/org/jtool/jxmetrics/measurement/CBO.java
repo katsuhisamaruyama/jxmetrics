@@ -6,10 +6,13 @@
 
 package org.jtool.jxmetrics.measurement;
 
-import org.jtool.jxmetrics.core.ClassMetrics;
-import org.jtool.jxmetrics.core.PackageMetrics;
 import org.jtool.jxmetrics.core.ProjectMetrics;
+import org.jtool.jxmetrics.core.PackageMetrics;
+import org.jtool.jxmetrics.core.ClassMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
+import org.jtool.eclipse.javamodel.JavaClass;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Measures the value of Coupling Between Objects.
@@ -18,8 +21,8 @@ import org.jtool.jxmetrics.core.UnsupportedMetricsException;
  */
 public class CBO extends Metric {
     
-    private static final String Name = "CBO";
-    private static final String Description = "Coupling between objects";
+    public static final String Name = "CBO";
+    private static final String Description = "Coupling Between Objects";
     
     /**
      * Creates an object returning a metric measurement.
@@ -28,33 +31,43 @@ public class CBO extends Metric {
         super(Name, Description);
     }
     
-    @Override
-    public boolean isClassMetric() {
-        return true;
+    public double calculate(JavaClass jclass) {
+        List<JavaClass> classes = new ArrayList<JavaClass>();
+        collectCoupledClasses(jclass, classes);
+        return (double)classes.size();
+    }
+    
+    private void collectCoupledClasses(JavaClass jclass, List<JavaClass> classes) {
+        for (JavaClass jc : jclass.getAfferentClassesInProject()) {
+            if (!classes.contains(jc)) {
+                classes.add(jc);
+                collectCoupledClasses(jc, classes);
+            }
+        }
     }
     
     @Override
     public double valueOf(ProjectMetrics mproject) throws UnsupportedMetricsException {
-        return mproject.getMetricValueWithException(COUPLING_BETWEEN_OBJECTS);
+        return mproject.getMetricValueWithException(Name);
     }
     
     @Override
     public double valueOf(PackageMetrics mpackage) throws UnsupportedMetricsException {
-        return mpackage.getMetricValueWithException(COUPLING_BETWEEN_OBJECTS);
+        return mpackage.getMetricValueWithException(Name);
     }
     
     @Override
     public double valueOf(ClassMetrics mclass) throws UnsupportedMetricsException {
-        return mclass.getMetricValueWithException(COUPLING_BETWEEN_OBJECTS);
+        return mclass.getMetricValueWithException(Name);
     }
     
     @Override
     public double maxValueIn(ProjectMetrics mproject) throws UnsupportedMetricsException {
-        return mproject.getMetricValueWithException(MAX_COUPLING_BETWEEN_OBJECTS);
+        return mproject.getMetricValueWithException(MAX + Name);
     }
     
     @Override
     public double maxValueIn(PackageMetrics mpackage) throws UnsupportedMetricsException {
-        return mpackage.getMetricValueWithException(MAX_COUPLING_BETWEEN_OBJECTS);
+        return mpackage.getMetricValueWithException(MAX + Name);
     }
 }

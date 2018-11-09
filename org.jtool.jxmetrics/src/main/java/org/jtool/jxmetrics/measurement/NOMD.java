@@ -6,10 +6,11 @@
 
 package org.jtool.jxmetrics.measurement;
 
-import org.jtool.jxmetrics.core.ClassMetrics;
-import org.jtool.jxmetrics.core.PackageMetrics;
 import org.jtool.jxmetrics.core.ProjectMetrics;
+import org.jtool.jxmetrics.core.PackageMetrics;
+import org.jtool.jxmetrics.core.ClassMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
+import org.jtool.eclipse.javamodel.JavaClass;
 
 /**
  * Measures the value of Number of Methods.
@@ -19,49 +20,38 @@ import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 public class NOMD extends Metric {
     
     public static final String Name = "NOMD";
-    private static final String Description = "Number of methods";
+    private static final String Description = "Number of Methods";
     
     public NOMD() {
         super(Name, Description);
     }
     
-    @Override
-    public boolean isProjectMetric() {
-        return true;
-    }
-    
-    @Override
-    public boolean isPackageMetric() {
-        return true;
-    }
-    
-    @Override
-    public boolean isClassMetric() {
-        return true;
+    public double calculate(JavaClass jclass) {
+        return (double)jclass.getMethods().size();
     }
     
     @Override
     public double valueOf(ProjectMetrics mproject) throws UnsupportedMetricsException {
-        return mproject.getMetricValueWithException(NUMBER_OF_METHODS);
+        return mproject.getMetricValueWithException(Name);
     }
     
     @Override
     public double valueOf(PackageMetrics mpackage) throws UnsupportedMetricsException {
-        return mpackage.getMetricValueWithException(NUMBER_OF_METHODS);
+        return mpackage.getMetricValueWithException(Name);
     }
     
     @Override
     public double valueOf(ClassMetrics mclass) throws UnsupportedMetricsException {
-        return mclass.getMetricValueWithException(NUMBER_OF_METHODS);
+        return mclass.getMetricValueWithException(Name);
     }
     
     @Override
     public double maxValueIn(ProjectMetrics mproject) throws UnsupportedMetricsException {
-        return mproject.getMetricValueWithException(MAX_NUMBER_OF_METHODS);
+        return mproject.getMetricValueWithException(MAX + Name);
     }
     
     @Override
     public double maxValueIn(PackageMetrics mpackage) throws UnsupportedMetricsException {
-        return mpackage.getMetricValueWithException(MAX_NUMBER_OF_METHODS);
+        return mpackage.getMetricValueWithException(MAX + Name);
     }
 }

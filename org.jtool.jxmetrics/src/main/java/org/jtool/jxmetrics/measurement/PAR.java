@@ -9,33 +9,33 @@ package org.jtool.jxmetrics.measurement;
 import org.jtool.jxmetrics.core.ClassMetrics;
 import org.jtool.jxmetrics.core.MethodMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
+import org.jtool.eclipse.javamodel.JavaMethod;
 
 /**
- * Measures the value of Number of Variables.
+ * Measures the value of Number of Parameters.
  * 
  * @author Katsuhisa Maruyama
  */
-public class NOVL extends Metric {
+public class PAR extends Metric {
     
-    public static final String Name = "NOVL";
-    private static final String Description = "Number of variables";
+    public static final String Name = "PAR";
+    private static final String Description = "Number of Parameters";
     
-    public NOVL() {
+    public PAR() {
         super(Name, Description);
     }
     
-    @Override
-    public boolean isMethodMetric() {
-        return true;
+    public double calculate(JavaMethod jmethod) {
+        return (double)jmethod.getParameterSize();
     }
     
     @Override
     public double valueOf(MethodMetrics mmethod) throws UnsupportedMetricsException {
-        return mmethod.getMetricValueWithException(NUMBER_OF_VARIABLES);
+        return mmethod.getMetricValueWithException(Name);
     }
     
     @Override
     public double maxValueIn(ClassMetrics mclass) throws UnsupportedMetricsException {
-        return mclass.getMetricValueWithException(MAX_NUMBER_OF_VARIABLES);
+        return mclass.getMetricValueWithException(MAX + Name);
     }
 }

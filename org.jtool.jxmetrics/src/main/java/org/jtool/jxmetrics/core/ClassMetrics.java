@@ -6,6 +6,30 @@
 
 package org.jtool.jxmetrics.core;
 
+import org.jtool.jxmetrics.measurement.LOC;
+import org.jtool.jxmetrics.measurement.Metric;
+import org.jtool.jxmetrics.measurement.NOST;
+import org.jtool.jxmetrics.measurement.CBO;
+import org.jtool.jxmetrics.measurement.DIT;
+import org.jtool.jxmetrics.measurement.NOC;
+import org.jtool.jxmetrics.measurement.RFC;
+import org.jtool.jxmetrics.measurement.WMC;
+import org.jtool.jxmetrics.measurement.LCOM;
+import org.jtool.jxmetrics.measurement.NOACL;
+import org.jtool.jxmetrics.measurement.NOECL;
+import org.jtool.jxmetrics.measurement.NOMD;
+import org.jtool.jxmetrics.measurement.NOFD;
+import org.jtool.jxmetrics.measurement.NOPMD;
+import org.jtool.jxmetrics.measurement.NOPFD;
+import org.jtool.jxmetrics.measurement.NOMDFD;
+import org.jtool.jxmetrics.measurement.NOAMD;
+import org.jtool.jxmetrics.measurement.NOEMD;
+import org.jtool.jxmetrics.measurement.NOEFD;
+import org.jtool.jxmetrics.measurement.CYCLO;
+import org.jtool.jxmetrics.measurement.NEST;
+import org.jtool.jxmetrics.measurement.PAR;
+import org.jtool.jxmetrics.measurement.LVAR;
+import org.jtool.eclipse.javamodel.JavaProject;
 import org.jtool.eclipse.javamodel.JavaClass;
 import org.jtool.eclipse.javamodel.JavaField;
 import org.jtool.eclipse.javamodel.JavaMethod;
@@ -14,13 +38,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.io.File;
+import java.math.BigDecimal;
 
 /**
  * Stores metric information on a class.
  * 
  * @author Katsuhisa Maruyama
  */
-public class ClassMetrics extends CommonMetrics implements MetricsSort {
+public class ClassMetrics extends CommonMetrics {
     
     public static final String Id = "ClassMetrics";
     
@@ -39,7 +64,7 @@ public class ClassMetrics extends CommonMetrics implements MetricsSort {
         super(fqn, name, type, modifiers);
     }
     
-    public ClassMetrics(JavaClass jclass, PackageMetrics mpackage) {
+    public ClassMetrics(JavaProject jproject, JavaClass jclass, PackageMetrics mpackage) {
         this(jclass.getQualifiedName(), jclass.getName(), jclass.getQualifiedName(), jclass.getModifiers());
         
         kind = jclass.getKind();
@@ -47,18 +72,13 @@ public class ClassMetrics extends CommonMetrics implements MetricsSort {
         superClassName = jclass.getSuperClassName();
         superInterfaceNames.addAll(jclass.getSuperInterfaceNames());
         path = jclass.getFile().getRelativePath();
-        
-        int start = jclass.getCodeRange().getStartPosition();
-        int end = jclass.getCodeRange().getEndPosition();
-        int upper = jclass.getCodeRange().getUpperLineNumber();
-        int bottom = jclass.getCodeRange().getBottomLineNumber();
-        setCodeProperties(start, end, upper, bottom);
+        setCodeProperties(jclass);
         
         for (JavaMethod jmethod : jclass.getMethods()) {
-            methods.add(new MethodMetrics(jmethod, this));
+            methods.add(new MethodMetrics(jproject, jmethod, this));
         }
         for (JavaField jfield: jclass.getFields()) {
-            fields.add(new FieldMetrics(jfield, this));
+            fields.add(new FieldMetrics(jproject, jfield, this));
         }
         
         for (JavaClass jc : jclass.getAfferentClasses()) {
@@ -188,27 +208,27 @@ public class ClassMetrics extends CommonMetrics implements MetricsSort {
     }
     
     protected void collectMetrics(JavaClass jclass) {
-        putMetricValue(LINES_OF_CODE, new Double(bottom - upper + 1));
-        putMetricValue(NUMBER_OF_STATEMENTS, sum(MetricsSort.NUMBER_OF_STATEMENTS));
+        putMetricValue(LOC.Name, sum(LOC.Name));
+        putMetricValue(NOST.Name, sum(NOST.Name));
         
-        putMetricValue(NUMBER_OF_METHODS, new Double(jclass.getMethods().size()));
-        putMetricValue(NUMBER_OF_FIELDS, new Double(jclass.getFields().size()));
-        putMetricValue(NUMBER_OF_METHODS_AND_FIELDS, new Double(jclass.getMethods().size() + jclass.getFields().size()));
-        putMetricValue(NUMBER_OF_PUBLIC_METHODS, new Double(getNumPublicMethods(jclass)));
-        putMetricValue(NUMBER_OF_PUBLIC_FIELDS, new Double(getNumPublicFields(jclass)));
+        putMetricValue(NOMD.Name, new NOMD().calculate(jclass));
+        putMetricValue(NOFD.Name, new NOFD().calculate(jclass));
+        putMetricValue(NOMDFD.Name, new NOMDFD().calculate(jclass));
+        putMetricValue(NOPMD.Name, new NOPMD().calculate(jclass));
+        putMetricValue(NOPFD.Name, new NOPFD().calculate(jclass));
         
-        putMetricValue(NUMBER_OF_AFFERENT_CLASSES, new Double(jclass.getAfferentClassesInProject().size()));
-        putMetricValue(NUMBER_OF_EFFERENT_CLASSES, new Double(jclass.getEfferentClassesInProject().size()));
-        putMetricValue(NUMBER_OF_AFFERENT_METHODS, sum(NUMBER_OF_AFFERENT_METHODS));
-        putMetricValue(NUMBER_OF_EFFERENT_METHODS, sum(NUMBER_OF_EFFERENT_METHODS));
-        putMetricValue(NUMBER_OF_EFFERENT_FIELDS, sum(NUMBER_OF_EFFERENT_FIELDS));
+        putMetricValue(NOACL.Name, new NOACL().calculate(jclass));
+        putMetricValue(NOECL.Name, new NOECL().calculate(jclass));
+        putSumMetricValue(NOAMD.Name);
+        putSumMetricValue(NOEMD.Name);
+        putSumMetricValue(NOEFD.Name);
         
-        putMetricValue(COUPLING_BETWEEN_OBJECTS, getCBO(jclass));
-        putMetricValue(DEPTH_OF_INHERITANCE_TREE, new Double(jclass.getAllSuperClasses().size()));
-        putMetricValue(NUMBER_OF_CHILDREN, new Double(jclass.getChildren().size()));
-        putMetricValue(RESPONSE_FOR_CLASS, getRFC(jclass));
-        putMetricValue(WEIGHTED_METHODS_PER_CLASS, getWMC(jclass));
-        putMetricValue(LACK_OF_COHESION_OF_METHODS, getLCOM(jclass));
+        putMetricValue(CBO.Name, new CBO().calculate(jclass));
+        putMetricValue(DIT.Name, new DIT().calculate(jclass));
+        putMetricValue(NOC.Name, new NOC().calculate(jclass));
+        putMetricValue(RFC.Name, new RFC().calculate(jclass));
+        putMetricValue(WMC.Name, new WMC().calculate(jclass));
+        putMetricValue(LCOM.Name, new LCOM().calculate(jclass));
     }
     
     public void collectMetricsAfterXMLImport() {
@@ -219,101 +239,28 @@ public class ClassMetrics extends CommonMetrics implements MetricsSort {
     }
     
     protected void collectMetricsMax() {
-        putMetricValue(MAX_LINES_OF_CODE, max(LINES_OF_CODE));
-        putMetricValue(MAX_NUMBER_OF_STATEMENTS, max(NUMBER_OF_STATEMENTS));
+        putMaxMetricValue(LOC.Name);
+        putMaxMetricValue(NOST.Name);
         
-        putMetricValue(MAX_NUMBER_OF_AFFERENT_METHODS, maxForMethods(NUMBER_OF_AFFERENT_METHODS));
-        putMetricValue(MAX_NUMBER_OF_EFFERENT_METHODS, maxForMethods(NUMBER_OF_EFFERENT_METHODS));
-        putMetricValue(MAX_NUMBER_OF_EFFERENT_FIELDS, maxForMethods(NUMBER_OF_EFFERENT_FIELDS));
+        putMaxMetricValue(NOAMD.Name);
+        putMaxMetricValue(NOEMD.Name);
+        putMaxMetricValue(NOEFD.Name);
         
-        putMetricValue(MAX_NUMBER_OF_PARAMETERS, maxForMethods(NUMBER_OF_PARAMETERS));
-        putMetricValue(MAX_CYCLOMATIC_COMPLEXITY, maxForMethods(CYCLOMATIC_COMPLEXITY));
-        putMetricValue(MAX_NUMBER_OF_VARIABLES, maxForMethods(NUMBER_OF_VARIABLES));
-        putMetricValue(MAX_MAX_NUMBER_OF_NESTING, maxForMethods(MAX_NUMBER_OF_NESTING));
+        putMaxMetricValue(CYCLO.Name);
+        putMaxMetricValue(NEST.Name);
+        putMaxMetricValue(LVAR.Name);
+        putMaxMetricValue(PAR.Name);
     }
     
-    protected double getNumPublicMethods(JavaClass jclass) {
-        int num = 0;
-        for (JavaMethod jm : jclass.getMethods()) {
-            if (jm.isPublic()) {
-                num++;
-            }
-        }
-        return (double)num;
+    private void putSumMetricValue(String sort) {
+        metricValues.put(sort, sum(sort));
     }
     
-    protected double getNumPublicFields(JavaClass jclass) {
-        int num = 0;
-        for (JavaField jf : jclass.getFields()) {
-            if (jf.isPublic()) {
-                num++;
-            }
-        }
-        return (double)num;
+    private void putMaxMetricValue(String sort) {
+        metricValues.put(Metric.MAX + sort, max(sort));
     }
     
-    protected double getRFC(JavaClass jclass) {
-        List<JavaMethod> calledMethods = new ArrayList<JavaMethod>();
-        for (JavaMethod jm : jclass.getMethods()) {
-            for (JavaMethod m : jm.getCalledMethodsInProject()) {
-                calledMethods.add(m);
-            }
-        }
-        return (double)(jclass.getMethods().size() + calledMethods.size());
-    }
-    
-    protected double getCBO(JavaClass jclass) {
-        List<JavaClass> classes = new ArrayList<JavaClass>();
-        collectCoupledClasses(jclass, classes);
-        return (double)classes.size();
-    }
-    
-    protected void collectCoupledClasses(JavaClass jclass, List<JavaClass> classes) {
-        for (JavaClass jc : jclass.getAfferentClassesInProject()) {
-            if (!classes.contains(jc)) {
-                classes.add(jc);
-                collectCoupledClasses(jc, classes);
-            }
-        }
-    }
-    
-    protected double getLCOM(JavaClass jclass) {
-        int accessedMethods = 0;
-        int cohesiveMethods = 0;
-        
-        ArrayList<JavaMethod> jmethods = new ArrayList<JavaMethod>(jclass.getMethods());
-        for (int i = 0; i < jmethods.size(); i++) {
-            for (int j = i + 1; j < jmethods.size(); j++) {
-                JavaMethod jm1 = jmethods.get(i);
-                JavaMethod jm2 = jmethods.get(j);
-                
-                for (JavaField jf1 : jm1.getAccessedFieldsInProject()) {
-                    for (JavaField jf2 : jm2.getAccessedFieldsInProject()) {
-                        if (jf1.equals(jf2)) {
-                            cohesiveMethods++;
-                        } else {
-                            accessedMethods++;
-                        }
-                    }
-                }
-            }
-        }
-        
-        if (accessedMethods > cohesiveMethods) {
-            return (double)(accessedMethods - cohesiveMethods);
-        }
-        return (double)0;
-    }
-    
-    protected double getWMC(JavaClass jclass) {
-        double wmc  = 0;
-        for (MethodMetrics mmethod : methods) {
-            wmc = wmc + mmethod.getMetricValue(MetricsSort.CYCLOMATIC_COMPLEXITY);
-        }
-        return wmc;
-    }
-    
-    protected Double sum(String sort) {
+    protected double sum(String sort) {
         double value = 0;
         for (MethodMetrics mmethod : methods) {
             value = value + mmethod.getMetricValue(sort);
@@ -321,7 +268,7 @@ public class ClassMetrics extends CommonMetrics implements MetricsSort {
         for (FieldMetrics mfield : fields) {
             value = value + mfield.getMetricValue(sort);
         }
-        return new Double(value);
+        return new BigDecimal(value).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
     
     protected Double max(String sort) {
@@ -332,7 +279,7 @@ public class ClassMetrics extends CommonMetrics implements MetricsSort {
         for (FieldMetrics mfield : fields) {
             value = Math.max(value, mfield.getMetricValue(sort));
         }
-        return new Double(value);
+        return new BigDecimal(value).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
     
     protected Double maxForMethods(String sort) {
@@ -340,12 +287,32 @@ public class ClassMetrics extends CommonMetrics implements MetricsSort {
         for (MethodMetrics mmethod : methods) {
             value = Math.max(value, mmethod.getMetricValue(sort));
         }
-        return new Double(value);
+        return new BigDecimal(value).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+    }
+    
+    public static List<String> getAccessedFields(JavaProject jproject, JavaClass jclass, JavaMethod jmethod) {
+        List<String> fieldNames = new ArrayList<String>();
+        for (JavaField jf : jmethod.getAccessedFieldsInProject()) {
+            if (jclass.equals(jf.getDeclaringClass())) {
+                fieldNames.add(jf.getName());
+            }
+        }
+        
+        for (JavaMethod jm : jmethod.getCalledMethodsInProject()) {
+            if (jclass.equals(jm.getDeclaringClass())) {
+                JavaField jf = MethodMetrics.getFieldbyAccessor(jproject, jm);
+                if (jf != null) {
+                    fieldNames.add(jf.getName());
+                }
+            }
+        }
+        return fieldNames;
     }
     
     public static void sort(List<ClassMetrics> classes) {
         Collections.sort(classes, new Comparator<ClassMetrics>() {
             
+            @Override
             public int compare(ClassMetrics mclass1, ClassMetrics mclass2) {
                 return mclass1.getQualifiedName().compareTo(mclass2.getQualifiedName());
             }

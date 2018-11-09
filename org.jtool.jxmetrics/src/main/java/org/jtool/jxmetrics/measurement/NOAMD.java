@@ -9,6 +9,7 @@ package org.jtool.jxmetrics.measurement;
 import org.jtool.jxmetrics.core.ClassMetrics;
 import org.jtool.jxmetrics.core.MethodMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
+import org.jtool.eclipse.javamodel.JavaMethod;
 
 /**
  * Measures the value of Number of Afferent Methods.
@@ -18,34 +19,28 @@ import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 public class NOAMD extends Metric {
     
     public static final String Name = "NOAMD";
-    private static final String Description = "Number of afferent methods";
+    private static final String Description = "Number of Afferent Methods";
     
     public NOAMD() {
         super(Name, Description);
     }
     
-    @Override
-    public boolean isClassMetric() {
-        return true;
-    }
-    
-    @Override
-    public boolean isMethodMetric() {
-        return true;
+    public double calculate(JavaMethod jmethod) {
+        return (double)jmethod.getCallingMethods().size();
     }
     
     @Override
     public double valueOf(ClassMetrics mclass) throws UnsupportedMetricsException {
-        return mclass.getMetricValueWithException(NUMBER_OF_AFFERENT_METHODS);
+        return mclass.getMetricValueWithException(Name);
     }
     
     @Override
     public double valueOf(MethodMetrics mmethod) throws UnsupportedMetricsException {
-        return mmethod.getMetricValueWithException(NUMBER_OF_AFFERENT_METHODS);
+        return mmethod.getMetricValueWithException(Name);
     }
     
     @Override
     public double maxValueIn(ClassMetrics mclass) throws UnsupportedMetricsException {
-        return mclass.getMetricValueWithException(MAX_NUMBER_OF_AFFERENT_METHODS);
+        return mclass.getMetricValueWithException(MAX + Name);
     }
 }

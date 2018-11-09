@@ -6,11 +6,11 @@
 
 package org.jtool.jxmetrics.measurement;
 
-import org.jtool.jxmetrics.core.ClassMetrics;
-import org.jtool.jxmetrics.core.FieldMetrics;
-import org.jtool.jxmetrics.core.MethodMetrics;
-import org.jtool.jxmetrics.core.PackageMetrics;
 import org.jtool.jxmetrics.core.ProjectMetrics;
+import org.jtool.jxmetrics.core.PackageMetrics;
+import org.jtool.jxmetrics.core.ClassMetrics;
+import org.jtool.jxmetrics.core.MethodMetrics;
+import org.jtool.jxmetrics.core.FieldMetrics;
 import org.jtool.jxmetrics.core.UnsupportedMetricsException;
 
 /**
@@ -22,12 +22,6 @@ public interface IMetric {
     
     public String getName();
     public String getDescription();
-    
-    public boolean isProjectMetric();
-    public boolean isPackageMetric();
-    public boolean isClassMetric();
-    public boolean isMethodMetric();
-    public boolean isFieldMetric();
     
     public double valueOf(ProjectMetrics mproject) throws UnsupportedMetricsException;
     public double valueOf(PackageMetrics mpackage) throws UnsupportedMetricsException;
