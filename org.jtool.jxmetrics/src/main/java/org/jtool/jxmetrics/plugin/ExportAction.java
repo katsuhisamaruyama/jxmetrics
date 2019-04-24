@@ -45,8 +45,8 @@ public class ExportAction extends AbstractHandler {
             }
             
             if (project != null) {
-                ModelBuilderPlugin modelBuilder = new ModelBuilderPlugin();
-                JavaProject jproject = modelBuilder.build(project);
+                ModelBuilderPlugin builder = new ModelBuilderPlugin();
+                JavaProject jproject = builder.build(project);
                 MetricsManager manager = new MetricsManager();
                 ProjectMetrics mproject = manager.calculate(jproject);
                 manager.exportXML(mproject);

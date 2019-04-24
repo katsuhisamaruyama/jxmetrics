@@ -1,5 +1,5 @@
 /*
- *  Copyright 2018
+ *  Copyright 2018-2019
  *  Software Science and Technology Lab.
  *  Department of Computer Science, Ritsumeikan University
  */
@@ -35,7 +35,6 @@ public class MetricsCalculator {
     
     public void run() {
         JavaProject jproject = builder.build();
-        
         MetricsManager manager = new MetricsManager();
         ProjectMetrics mproject = manager.calculate(jproject);
         manager.exportXML(mproject);
@@ -44,7 +43,7 @@ public class MetricsCalculator {
     }
     
     public static void main(String[] args) {
-        MetricsCalculator builder = new MetricsCalculator(args);
-        builder.run();
+        MetricsCalculator calculator = new MetricsCalculator(args);
+        calculator.run();
     }
 }

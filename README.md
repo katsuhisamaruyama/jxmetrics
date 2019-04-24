@@ -56,9 +56,10 @@ You can import the JxMetrics project from this site, build it, and export a depl
 
 If your batch-process application employs JxPlatform2, you should use `jxmetrics-1.0-lib.jar` instead of `jxplatform-1.0-all.jar`.
 
-`MetricsManager` class provides APIs for calculating metric values. It also exports metric values into an XML file and imports ones from an XML file. The following API calls write the measured values into an XML file.  In this case, `jxplatform-1.0-lib.jar` is also needed.
+`MetricsManager` class provides APIs for calculating metric values. It also exports metric values into an XML file and imports ones from an XML file. The following API calls write the measured values into an XML file. In this case, `jxplatform-1.0-lib.jar` is also needed.
 
     JavaModelBuilder builder = new JavaModelBuilder(name, target, classpath);
+    JavaProject jproject = builder.build();
     MetricsManager manager = new MetricsManager();
     ProjectMetrics mproject = manager.calculate(jproject);
     manager.exportXML(mproject);
@@ -78,9 +79,8 @@ The following code imports metrics values from an XML file with a path name.
 
 The following code calculates metrics values for Java elements within a specified Eclipse's project and exports them into an XML file. 
 
-    org.eclipse.jdt.core.IJavaProject project;  // Eclipse's project
-    ModelBuilderPlugin modelBuilder = new ModelBuilderPlugin();
-    JavaProject jproject = modelBuilder.build(project);
+    ModelBuilderPlugin builder = new ModelBuilderPlugin();
+    JavaProject jproject = builder.build(project);
     MetricsManager manager = new MetricsManager();
     ProjectMetrics mproject = manager.calculate(jproject);
     manager.exportXML(mproject);

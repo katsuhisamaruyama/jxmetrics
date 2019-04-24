@@ -100,13 +100,13 @@ public class MetricsTransitionTable extends Composite {
     public String exportData() {
         StringBuilder buf = new StringBuilder();
         for (int i = 0; i < table.getColumnCount(); i++) {
-            buf.append(table.getColumn(i).getText() + ", ");
+            buf.append(table.getColumn(i).getText() + ",");
         }
         buf.append("\n");
         for (OutputData odata : outputData) {
-            buf.append(odata.fqn + ", ");
+            buf.append(odata.fqn + ",");
             for (int i = 0; i < odata.values.length; i++) {
-                buf.append(String.valueOf(odata.values[i]) + ", ");
+                buf.append(String.valueOf(odata.values[i]) + ",");
             }
             buf.append("\n");
         }

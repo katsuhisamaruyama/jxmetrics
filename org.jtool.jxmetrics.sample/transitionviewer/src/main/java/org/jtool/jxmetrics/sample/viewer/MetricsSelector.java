@@ -172,7 +172,7 @@ public class MetricsSelector extends Composite {
     private String[] getTitles() {
         String[] titles = new String[projects.size()];
         for (int i = 0; i < projects.size(); i++) {
-            titles[i] = String.valueOf(projects.get(i).getFormatedDate());
+            titles[i] = String.valueOf(projects.get(i).getName());
         }
         return titles;
     }
@@ -190,16 +190,19 @@ public class MetricsSelector extends Composite {
         for (int i = 0; i < projects.size(); i++) {
             ProjectMetrics mproject = projects.get(i);
             for (ClassMetrics mclass : mproject.getClasses()) {
-                try {
-                    double value = metric.valueOf(mclass);
-                    String fqn = mclass.getQualifiedName();
-                    double[] values = data.get(fqn);
-                    if (values == null) {
-                        values = new double[projects.size()];
-                        data.put(fqn, values);
-                    }
-                    values[i] = value;
-                } catch (UnsupportedMetricsException e) { /* empty */ }
+                String fqn = mclass.getQualifiedName();
+                if (mclass.isPublic() && fqn.indexOf('$') == -1) {
+                    try {
+                        double value = metric.valueOf(mclass);
+                        
+                        double[] values = data.get(fqn);
+                        if (values == null) {
+                            values = new double[projects.size()];
+                            data.put(fqn, values);
+                        }
+                        values[i] = value;
+                    } catch (UnsupportedMetricsException e) { /* empty */ }
+                }
             }
         }
         return data;
