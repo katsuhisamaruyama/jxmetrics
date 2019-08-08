@@ -48,9 +48,10 @@ You can import the JxMetrics project from this site, build it, and export a depl
 
 `jxmetrics-1.0-all.jar` is an executable jar file. When you put Java source code (usually expanded Java source files) under the `xxx` folder, the following command calculates several metric values for the source code and writes the values into an XML file (`xxx-<time>.xml`).
 
-    java -jar jxmetrics-1.0-all.jar -target xxx/ -classpath 'xxx/lib/*' -name xxx -logfile xxx.log
+    java -jar  jxmetrics-1.0-all.jar -target xxx/ -classpath 'xxx/lib/*:xxx/libs/*' -srcpath 'xxx/src:xxx/test' -name name -logfile xxx.log
 
 * `-classpath`: (optional) specifies class paths where needed libraries are contained 
+* `-srcspath`: (optional) specifies paths where source files are contained 
 * `-name`: (optional) specifies the name of a project managed in jxmetrics 
 * `-logfile`:(optional) specifies the name of a file in which the result of analysis is written 
 
