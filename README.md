@@ -51,7 +51,7 @@ You can import the JxMetrics project from this site, build it, and export a depl
     java -jar  jxmetrics-1.0-all.jar -target xxx/ -classpath 'xxx/lib/*:xxx/libs/*' -srcpath 'xxx/src:xxx/test' -name name -logfile xxx.log
 
 * `-classpath`: (optional) specifies class paths where needed libraries are contained 
-* `-srcspath`: (optional) specifies paths where source files are contained 
+* `-srcpath`: (optional) specifies paths where source files are contained 
 * `-name`: (optional) specifies the name of a project managed in jxmetrics 
 * `-logfile`:(optional) specifies the name of a file in which the result of analysis is written 
 
