@@ -26,11 +26,15 @@ public class MetricsCalculator {
     }
     
     public MetricsCalculator(String name, String target) {
-        this(name, target, target);
+        this(name, target, target, null);
     }
     
     public MetricsCalculator(String name, String target, String classpath) {
-        builder = new JavaModelBuilder(name, target, classpath);
+        this(name, target, classpath, null);
+    }
+    
+    public MetricsCalculator(String name, String target, String classpath, String srcpath) {
+        builder = new JavaModelBuilder(name, target, classpath, srcpath);
     }
     
     public void run() {
