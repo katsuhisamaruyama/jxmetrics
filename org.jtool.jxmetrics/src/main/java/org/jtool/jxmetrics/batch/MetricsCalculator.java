@@ -11,6 +11,7 @@ import org.jtool.jxmetrics.core.ProjectMetrics;
 import org.jtool.eclipse.batch.JavaModelBuilder;
 import org.jtool.eclipse.javamodel.JavaProject;
 import org.jtool.eclipse.util.Logger;
+import org.jtool.eclipse.util.Options;
 
 /**
  * Calculates metric values.
@@ -20,28 +21,32 @@ import org.jtool.eclipse.util.Logger;
 public class MetricsCalculator {
     
     private JavaModelBuilder builder;
+    private String outputfile;
     
     public MetricsCalculator(String[] args) {
+        Options options = new Options(args);
+        outputfile = options.get("-output", null);
+        
         builder = new JavaModelBuilder(args);
     }
     
     public MetricsCalculator(String name, String target) {
-        this(name, target, target, null);
+        this(name, target, target, target, target);
     }
     
     public MetricsCalculator(String name, String target, String classpath) {
-        this(name, target, classpath, null);
+        this(name, target, classpath, target, target);
     }
     
-    public MetricsCalculator(String name, String target, String classpath, String srcpath) {
-        builder = new JavaModelBuilder(name, target, classpath, srcpath);
+    public MetricsCalculator(String name, String target, String classpath, String srcpath, String binpath) {
+        builder = new JavaModelBuilder(name, target, classpath, srcpath, binpath);
     }
     
     public void run() {
         JavaProject jproject = builder.build();
         MetricsManager manager = new MetricsManager();
         ProjectMetrics mproject = manager.calculate(jproject);
-        manager.exportXML(mproject);
+        manager.exportXML(mproject, outputfile);
         Logger.getInstance().writeLog();
         builder.unbuild();
     }

@@ -82,9 +82,11 @@ public class MetricsManager {
         return mproject;
     }
     
-    public void exportXML(ProjectMetrics mproject) {
-        String filename = mproject.getName() + "-" + String.valueOf(mproject.getTimeAsLong()) + XML_FILENAME_EXT;
-        File file = new File(mproject.getDir() + File.separatorChar + filename);
+    public void exportXML(ProjectMetrics mproject, String path) {
+        if (path == null) {
+            path = mproject.getName() + "-" + String.valueOf(mproject.getTimeAsLong()) + XML_FILENAME_EXT;
+        }
+        File file = new File(mproject.getDir() + File.separatorChar + path);
         if (file.exists()) {
             file.delete();
         }
@@ -93,7 +95,7 @@ public class MetricsManager {
         MetricDataExporter exporter = new MetricDataExporter();
         Document doc = exporter.getDocument(mproject);
         XMLWriter.write(file, doc);
-        Logger.getInstance().printLog("-Exported " + filename);
+        Logger.getInstance().printLog("-Exported " + path);
     }
     
     public ProjectMetrics importXML(String path) {
