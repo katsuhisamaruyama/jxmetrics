@@ -4,10 +4,8 @@
  *  Department of Computer Science, Ritsumeikan University
  */
 
-
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'com.github.johnrengelman.shadow'
 
 group = 'com.jtool.eclipse'
 jar.enabled = false

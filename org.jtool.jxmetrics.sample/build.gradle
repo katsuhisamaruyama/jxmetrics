@@ -33,7 +33,7 @@ subprojects {
     
     dependencies {
         //compile files('../lib/swt.jar')
-        // compile project(':org.jtool.jxmetrics')
+        //compile project(':org.jtool.jxmetrics')
         testCompile 'junit:junit:4.+'
     }
 }
