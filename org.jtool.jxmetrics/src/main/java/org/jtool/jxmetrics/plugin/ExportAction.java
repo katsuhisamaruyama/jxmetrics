@@ -49,7 +49,7 @@ public class ExportAction extends AbstractHandler {
                 JavaProject jproject = builder.build(project);
                 MetricsManager manager = new MetricsManager();
                 ProjectMetrics mproject = manager.calculate(jproject);
-                manager.exportXML(mproject);
+                manager.exportXML(mproject, null);
             }
         }
         return null;
