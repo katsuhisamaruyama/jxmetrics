@@ -117,6 +117,7 @@ The following code imports metrics values from an XML file with a path name.
 
 `MetricsManager` class provides APIs for calculating metric values. It also exports metric values into an XML file and imports ones from an XML file. 
 
+
 ### Samples
 
 You can see [samples](<https://github.com/katsuhisamaruyama/jxmetrics/tree/master/org.jtool.jxmetrics.sample>) that imports metric values and displays them.
