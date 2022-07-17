@@ -8,6 +8,9 @@ package org.jtool.jxmetrics.batch;
 
 import org.jtool.jxmetrics.core.MetricsManager;
 import org.jtool.jxmetrics.core.ProjectMetrics;
+
+import java.util.List;
+
 import org.jtool.eclipse.batch.JavaModelBuilder;
 import org.jtool.eclipse.javamodel.JavaProject;
 import org.jtool.eclipse.util.Logger;
@@ -43,11 +46,13 @@ public class MetricsCalculator {
     }
     
     public void run() {
-        JavaProject jproject = builder.build();
+        List<JavaProject> jprojects = builder.build();
         MetricsManager manager = new MetricsManager();
-        ProjectMetrics mproject = manager.calculate(jproject);
-        manager.exportXML(mproject, outputfile);
-        Logger.getInstance().writeLog();
+        for (JavaProject jproject : jprojects) {
+            ProjectMetrics mproject = manager.calculate(jproject);
+            manager.exportXML(mproject, outputfile);
+            Logger.getInstance().writeLog();
+        }
         builder.unbuild();
     }
     

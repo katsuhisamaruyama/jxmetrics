@@ -181,7 +181,7 @@ public class MethodMetrics extends CommonMetrics {
         }
         
         CFG cfg = jproject.getModelBuilder().getCFG(jmethod);
-        CFGMethodEntry entry = (CFGMethodEntry)cfg.getStartNode();
+        CFGMethodEntry entry = (CFGMethodEntry)cfg.getEntryNode();
         JReference param = entry.getFormalIn(0).getDefVariable();
         
         int num = 0;

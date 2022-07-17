@@ -42,16 +42,17 @@ shadowJar {
 test.enabled = false
 
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
+sourceCompatibility = '1.11'
+targetCompatibility = '1.11'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compile project(':org.jtool.eclipse')
-    testCompile 'junit:junit:4.+'
+    implementation project(':org.jtool.eclipse')
+    implementation group: 'org.eclipse.jdt', name: 'org.eclipse.jdt.core', version: '3.30.+'
+    testImplementation 'junit:junit:4.+'
 }
 
 compileJava {
